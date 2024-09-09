@@ -1,12 +1,17 @@
 - `réfléchir en amont aux nombres de routes url nécessaires et à celles qu'on peut grouper en une.`
 - `créer les div vide de index.html`
-- écrire le js qui affiche successivement les div suivant le lien cliqué
-- ajouter du css montrant sur quel lien on clique actuellement
+- `écrire le js qui affiche successivement les div suivant le lien cliqué`
+- `ajouter du css montrant sur quel lien on clique actuellement`
 
 Using Python, JavaScript, HTML, and CSS, complete the implementation of a social network that allows users to make posts, follow other users, and “like” posts. You must fulfill the following requirements:
-
     New Post: Users who are signed in should be able to write a new text-based post by filling in text into a text area and then clicking a button to submit the post.
         The screenshot at the top of this specification shows the “New Post” box at the top of the “All Posts” page. You may choose to do this as well, or you may make the “New Post” feature a separate page.
+            - créer un modèle pour les posts dans la bdd
+            - créer une url menant à la vue
+            - créer la vue pour enregistrer un post dans la bdd
+            - dans cette vue transmettre l'objet json retourner l'ensemble des posts dans un JSON
+            - écrire la fonction JS lorsqu'on clique sur le bouton submit (fetch de cette vue)
+            - écrire un test unitaire pour l'enregistrement d'un post (à mon avis c'est encore le client django avec post)
     All Posts: The “All Posts” link in the navigation bar should take the user to a page where they can see all posts from all users, with the most recent posts first.
         Each post should include the username of the poster, the post content itself, the date and time at which the post was made, and the number of “likes” the post has (this will be 0 for all posts until you implement the ability to “like” a post later).
     Profile Page: Clicking on a username should load that user’s profile page. This page should:

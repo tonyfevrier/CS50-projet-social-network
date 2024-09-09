@@ -1,0 +1,8 @@
+.btn{
+    background-color: transparent;
+    border: none;
+}
+
+.btn:focus{
+    color: aqua;
+}

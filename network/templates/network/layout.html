@@ -16,17 +16,17 @@
               <ul class="navbar-nav mr-auto">
                 {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <button id="profile-btn" class="nav-link"><strong>{{ user.username }}</strong></button>
+                        <button id="profile-btn" class="nav-link btn"><strong>{{ user.username }}</strong></button>
                         <!--<a id="profile-btn" class="nav-link" href="{% url 'index' %}"><strong>{{ user.username }}</strong></a>-->
                     </li>
                 {% endif %}
                 <li class="nav-item">
-                    <button id="allposts-btn" class="nav-link">All Posts</button>
+                    <button id="allposts-btn" class="nav-link btn">All Posts</button>
                     <!--<a id="allposts-btn" class="nav-link" href="{% url 'index' %}">All Posts</a>-->
                 </li>
                 {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <button id="following-btn" class="nav-link">Following</button>
+                        <button id="following-btn" class="nav-link btn">Following</button>
                         <!--<a id="following-btn" class="nav-link" href="{% url 'index' %}">Following</a>-->
                     </li>
                     <li class="nav-item">

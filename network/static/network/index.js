@@ -1,5 +1,4 @@
-document.addEventListener("DOMContentLoaded", function(){
-    console.log( document.querySelector("#allposts-content"))
+document.addEventListener("DOMContentLoaded", function(){ 
     document.querySelector("#allposts-btn").addEventListener("click", print_all_posts);
     document.querySelector("#profile-btn").addEventListener("click", print_profile);
     document.querySelector("#following-btn").addEventListener("click", print_following_posts);
