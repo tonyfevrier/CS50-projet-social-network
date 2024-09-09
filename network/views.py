@@ -72,12 +72,12 @@ def register_post(request):
         return JsonResponse({'error':'The method of submission should be post'}, status=400)
          
     data = json.loads(request.body)  
-    Post.objects.create(user=request.user, text=data.get('post-content'))
+    Post.objects.create(user=request.user, text=data.get('post_content'))
     return JsonResponse({'message':'post sent successfully'}, status=200)
 
 
 def view_some_posts(request,whichposts):
     """Returns some posts depending on the button clicked in the navbar"""
-    return JsonResponse([post.serialize() for post in Post.objects.all()], safe=False)
+    return JsonResponse([post.serialize() for post in Post.objects.order_by('-date').all()], safe=False)
 
     

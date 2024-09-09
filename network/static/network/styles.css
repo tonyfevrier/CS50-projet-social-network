@@ -1,8 +1,46 @@
-.btn{
-    background-color: transparent;
-    border: none;
+.btn {
+  background-color: transparent;
+  border: none;
+}
+.btn:focus {
+  color: aqua;
 }
 
-.btn:focus{
-    color: aqua;
+.body {
+  padding: 20px;
 }
+.body .newpost {
+  padding: 10px;
+  border: 1px solid lightgray;
+}
+.body .newpost textarea {
+  width: 100%;
+  border: none;
+  resize: none;
+}
+.body .newpost textarea:focus {
+  outline: none;
+}
+.body .newpost #submit-post {
+  display: block;
+  background-color: transparent;
+  border: 1px solid lightgray;
+  margin-left: auto;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+.body .newpost #submit-post:hover {
+  color: blue;
+  background-color: lightgray;
+}
+.body .post-element {
+  border: 1px solid lightgray;
+  padding: 10px;
+}
+.body .post-element span {
+  color: grey;
+  font-size: 12px;
+}
+.body .post-element .post-text {
+  font-size: 12px;
+}/*# sourceMappingURL=styles.css.map */

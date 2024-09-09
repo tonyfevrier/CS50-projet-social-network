@@ -2,7 +2,8 @@ document.addEventListener("DOMContentLoaded", function(){
 
     // Choose the page to print
     document.querySelector("#allposts-btn").addEventListener("click", print_some_posts);
-    document.querySelector("#profile-btn").addEventListener("click", print_profile); 
+
+    if (document.querySelector("#profile-btn")) document.querySelector("#profile-btn").addEventListener("click", print_profile); 
 
     // Authorize submission of a post only if there is an input
     document.querySelector("#textarea-content").addEventListener("input", allowsubmission);
@@ -13,9 +14,8 @@ document.addEventListener("DOMContentLoaded", function(){
     print_some_posts('all');
 }); 
 
-
 function print_some_posts(whichposts){
-    // Print the block of posts, hide profile block
+    // Print the block of posts, hide profile block  
     document.querySelector("#allposts-content").style.display = "block";
     document.querySelector("#profile-content").style.display ="none"; 
 
@@ -23,13 +23,12 @@ function print_some_posts(whichposts){
     fetch(`/someposts/${whichposts}`)
     .then(response => response.json())
     .then(data => data.forEach(element => {
-        //create the html element containing the post
+        //create the html element containing the post 
         const post = document.createElement('div');
         post.className = "post-element";
-        post.innerHTML = `<h4>${element.user.username}</h4>
-                          <p>${element.text}</p>
-                          <p>${element.date}</p>
-                          <p>${element.likes}</p>`;
+        post.innerHTML = `<p><strong>${element.username}</strong> <span> le ${element.date}</span><p>
+                          <p class="post-text">${element.text}</p> 
+                          <p>${element.likes} likes</p>`;
         document.querySelector('#allposts-content').append(post);
         }))
 }
@@ -56,14 +55,23 @@ function submit_post(){
 
     // Make a request to the API 
     fetch('/post', { 
-        'method': "POST",
-        'headers':{
+        method: "POST",
+        headers:{
             'X-CSRFToken':csrf_token,
         },
-        'body': JSON.stringify({
-            'post-content': document.querySelector('#textarea-content').value,
+        body: JSON.stringify({
+            post_content: document.querySelector('#textarea-content').value,
         })
-    }).then(response => print_some_posts('all'))
+    })
+    .then(response => { 
+        document.querySelector('#textarea-content').value = ''; 
+
+        // Do not print posts already present on the page
+        document.querySelectorAll('.post-element').forEach(element => element.style.display = 'none');
+
+        // Print all posts 
+        print_some_posts('all');
+    })
     .catch(error => console.log(error));
 
 }   
