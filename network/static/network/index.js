@@ -15,11 +15,23 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
 function print_some_posts(whichposts){
-    // Print 
+    // Print the block of posts, hide profile block
     document.querySelector("#allposts-content").style.display = "block";
     document.querySelector("#profile-content").style.display ="none"; 
 
-    //
+    // Request the API to load the appropriate set of posts
+    fetch(`/someposts/${whichposts}`)
+    .then(response => response.json())
+    .then(data => data.forEach(element => {
+        //create the html element containing the post
+        const post = document.createElement('div');
+        post.className = "post-element";
+        post.innerHTML = `<h4>${element.user.username}</h4>
+                          <p>${element.text}</p>
+                          <p>${element.date}</p>
+                          <p>${element.likes}</p>`;
+        document.querySelector('#allposts-content').append(post);
+        }))
 }
 
 
@@ -51,7 +63,7 @@ function submit_post(){
         'body': JSON.stringify({
             'post-content': document.querySelector('#textarea-content').value,
         })
-    }).then(response => print_all_posts())
+    }).then(response => print_some_posts('all'))
     .catch(error => console.log(error));
 
 }   

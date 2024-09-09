@@ -78,6 +78,6 @@ def register_post(request):
 
 def view_some_posts(request,whichposts):
     """Returns some posts depending on the button clicked in the navbar"""
-    return JsonResponse({'data':[post for post in Post.objects.all()]}, status='200')
+    return JsonResponse([post.serialize() for post in Post.objects.all()], safe=False)
 
     

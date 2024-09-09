@@ -16,9 +16,13 @@ Using Python, JavaScript, HTML, and CSS, complete the implementation of a social
             - `aller voir comment lui à écrit sa vue JS dans commerce pour m'améliorer`
     All Posts: The “All Posts” link in the navigation bar should take the user to a page where they can see all posts from all users, with the most recent posts first.
         Each post should include the username of the poster, the post content itself, the date and time at which the post was made, and the number of “likes” the post has (this will be 0 for all posts until you implement the ability to “like” a post later).
-            - écrire la vue qui génère les données
-            - écrire la fonction JS pour récup les données et les afficher
+            - `écrire la vue qui génère les données`
+            - `commencer par générer tous les posts même si ma fonction dépend de whichposts, on adaptera la vue pour les pages de profil et following plus tard.`
+            - `bug il faut dans la json response envoyer post sous forme de json objects sinon ils ne sont pas exploitables dans les promesses.`
+            - bug : request.user.username ne semble pas passer (undefined dans l'affichage)
+            - `écrire la fonction JS pour récup les données et les afficher`
             - aller voir comment lui à écrit sa vue JS dans commerce pour m'améliorer
+            - changer l'ordre d'affichage des posts
     Profile Page: Clicking on a username should load that user’s profile page. This page should:
         Display the number of followers the user has, as well as the number of people that the user follows.
         Display all of the posts for that user, in reverse chronological order.
