@@ -4,8 +4,8 @@
 - `ajouter du css montrant sur quel lien on clique actuellement`
 
 Using Python, JavaScript, HTML, and CSS, complete the implementation of a social network that allows users to make posts, follow other users, and “like” posts. You must fulfill the following requirements:
-    New Post: Users who are signed in should be able to write a new text-based post by filling in text into a text area and then clicking a button to submit the post.
-        The screenshot at the top of this specification shows the “New Post” box at the top of the “All Posts” page. You may choose to do this as well, or you may make the “New Post” feature a separate page.
+    `New Post: Users who are signed in should be able to write a new text-based post by filling in text into a text area and then clicking a button to submit the post.`
+        `The screenshot at the top of this specification shows the “New Post” box at the top of the “All Posts” page. You may choose to do this as well, or you may make the “New Post” feature a separate page.`
             - `créer un modèle pour les posts dans la bdd`
             - `créer une url menant à la vue`
             - `créer la vue pour enregistrer un post dans la bdd`
@@ -16,6 +16,9 @@ Using Python, JavaScript, HTML, and CSS, complete the implementation of a social
             - `aller voir comment lui à écrit sa vue JS dans commerce pour m'améliorer`
     All Posts: The “All Posts” link in the navigation bar should take the user to a page where they can see all posts from all users, with the most recent posts first.
         Each post should include the username of the poster, the post content itself, the date and time at which the post was made, and the number of “likes” the post has (this will be 0 for all posts until you implement the ability to “like” a post later).
+            - écrire la vue qui génère les données
+            - écrire la fonction JS pour récup les données et les afficher
+            - aller voir comment lui à écrit sa vue JS dans commerce pour m'améliorer
     Profile Page: Clicking on a username should load that user’s profile page. This page should:
         Display the number of followers the user has, as well as the number of people that the user follows.
         Display all of the posts for that user, in reverse chronological order.

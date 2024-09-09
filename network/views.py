@@ -75,4 +75,9 @@ def register_post(request):
     Post.objects.create(user=request.user, text=data.get('post-content'))
     return JsonResponse({'message':'post sent successfully'}, status=200)
 
+
+def view_some_posts(request,whichposts):
+    """Returns some posts depending on the button clicked in the navbar"""
+    return JsonResponse({'data':[post for post in Post.objects.all()]}, status='200')
+
     
