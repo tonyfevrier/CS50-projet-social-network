@@ -66,6 +66,7 @@ def register(request):
 
 @login_required
 def register_post(request): 
+    print(1211)
     # Register the post
     if request.method == "POST":
         content = request.body.get["post-content"]
