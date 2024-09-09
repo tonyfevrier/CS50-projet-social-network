@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function(){ 
+document.addEventListener("DOMContentLoaded", function(){  
 
     // Choose the page to print
     document.querySelector("#allposts-btn").addEventListener("click", print_all_posts);
@@ -44,5 +44,17 @@ function allowsubmission(event){
 
 
 function submit_post(){
-    // 
+    // Récupérer le token
+    const csrf_token = document.querySelector('meta[name="csrf-token"]').content;
+    
+    // Make a request to the API 
+    fetch('/post', { 
+        'method': "POST",
+        'headers':{
+            'X-CSRFToken':csrf_token,
+        },
+        'body': JSON.stringify({
+            'post-content': document.querySelector('#textarea-content').value,
+        })
+    }).catch(error => console.log(error));
 }   
