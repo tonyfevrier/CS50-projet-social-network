@@ -1,6 +1,7 @@
-- faire des tests unitaires + fonctionnels (selenium)
 - `réfléchir en amont aux nombres de routes url nécessaires et à celles qu'on peut grouper en une.`
-- créer les div vide de index.html
+- `créer les div vide de index.html`
+- écrire le js qui affiche successivement les div suivant le lien cliqué
+- ajouter du css montrant sur quel lien on clique actuellement
 
 Using Python, JavaScript, HTML, and CSS, complete the implementation of a social network that allows users to make posts, follow other users, and “like” posts. You must fulfill the following requirements:
 

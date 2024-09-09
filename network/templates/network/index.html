@@ -1,11 +1,18 @@
 {% extends "network/layout.html" %}
+{% load static %}
 
 {% block body %}
-    <div class="newpost">
-        <textarea name="post-content" id="post-content"></textarea>
-        <button id="submit-post">Post</button>
+    <div id="allposts-content">
+        <div class="newpost">
+            <p>New post</p>
+            <textarea name="post-content" id="post-content"></textarea>
+            <button id="submit-post">Post</button>
+        </div>
     </div>
-    <div id="allposts-content"></div>
     <div id="profile-content"></div>
     <div id="following-content"></div>
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'network/index.js' %}"></script>
 {% endblock %}
