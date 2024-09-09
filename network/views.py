@@ -1,11 +1,12 @@
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 
 from .models import User, Post
+import json
 
 
 def index(request):
@@ -65,11 +66,13 @@ def register(request):
     
 
 @login_required
-def register_post(request): 
-    print(1211)
+def register_post(request):  
     # Register the post
-    if request.method == "POST":
-        content = request.body.get["post-content"]
-        Post.objects.create(user=request.user, content=content)
+    if request.method != "POST":
+        return JsonResponse({'error':'The method of submission should be post'}, status=400)
+         
+    data = json.loads(request.body)  
+    Post.objects.create(user=request.user, text=data.get('post-content'))
+    return JsonResponse({'message':'post sent successfully'}, status=200)
 
     

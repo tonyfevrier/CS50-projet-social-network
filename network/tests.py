@@ -1,6 +1,8 @@
 from django.test import TestCase
 from network.models import Post
 
+import json
+
 class TestPost(TestCase):
 
     def test_post_submission(self):
@@ -8,9 +10,9 @@ class TestPost(TestCase):
         self.register_and_log('tony','tony.fevrier@gmail.com','1234','1234')
 
         # Submit a post and verify its registering 
-        self.client.post("/post", data={'post-content':'contenu du post'})
+        self.submit_a_post('contenu du post')
         self.assertEqual(len(Post.objects.all()), 1)
-        self.assertEqual(Post.objects.first().user, )
+        self.assertEqual(Post.objects.first().user.username, 'tony')
         self.assertEqual(Post.objects.first().text, 'contenu du post')
         self.assertEqual(Post.objects.first().likes, 0)
         
@@ -21,4 +23,9 @@ class TestPost(TestCase):
                                            'confirmation':confirmation})
         self.client.post('/login',data={'username':user,
                                         "password":password})
+        
+    def submit_a_post(self,content):
+        self.client.post("/post", 
+                         data=json.dumps({'post-content':content}),
+                         content_type='application/json')
         

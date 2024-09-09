@@ -46,7 +46,7 @@ function allowsubmission(event){
 function submit_post(){
     // Récupérer le token
     const csrf_token = document.querySelector('meta[name="csrf-token"]').content;
-    
+
     // Make a request to the API 
     fetch('/post', { 
         'method': "POST",
@@ -56,5 +56,7 @@ function submit_post(){
         'body': JSON.stringify({
             'post-content': document.querySelector('#textarea-content').value,
         })
-    }).catch(error => console.log(error));
+    }).then(response => print_all_posts())
+    .catch(error => console.log(error));
+
 }   
