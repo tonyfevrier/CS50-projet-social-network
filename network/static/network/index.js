@@ -30,11 +30,12 @@ function print_some_posts(whichposts){
                           <p class="post-text">${element.text}</p> 
                           <p>${element.likes} likes</p>`;
         document.querySelector('#allposts-content').append(post);
-        }))
+        post.querySelector('.user-btn').addEventListener('click', print_profile);
+    }))
 }
 
 
-function print_profile(){
+function print_profile(event){
     document.querySelector("#allposts-content").style.display = "none";
     document.querySelector("#profile-content").style.display = "block"; 
 }
