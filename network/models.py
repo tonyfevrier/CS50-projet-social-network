@@ -7,6 +7,11 @@ import json
 
 class User(AbstractUser):
     following = models.JSONField(default=[])
+    followers = models.JSONField(default=[])
+
+    def serialize(self):
+        return {'following_number':len(self.following),
+                'followers_number':len(self.followers)}
 
 
 class Post(models.Model):
