@@ -14,7 +14,7 @@ Using Python, JavaScript, HTML, and CSS, complete the implementation of a social
             - `écrire la fonction JS lorsqu'on clique sur le bouton submit (fetch de cette vue)`
             - `écrire un test unitaire pour l'enregistrement d'un post (à mon avis c'est encore le client django avec post)`
             - `aller voir comment lui à écrit sa vue JS dans commerce pour m'améliorer`
-    All Posts: The “All Posts” link in the navigation bar should take the user to a page where they can see all posts from all users, with the most recent posts first.
+    `All Posts: The “All Posts” link in the navigation bar should take the user to a page where they can see all posts from all users, with the most recent posts first.`
         `Each post should include the username of the poster, the post content itself, the date and time at which the post was made, and the number of “likes” the post has (this will be 0 for all posts until you implement the ability to “like” a post later).`
             - `écrire la vue qui génère les données`
             - `commencer par générer tous les posts même si ma fonction dépend de whichposts, on adaptera la vue pour les pages de profil et following plus tard.`
@@ -23,7 +23,7 @@ Using Python, JavaScript, HTML, and CSS, complete the implementation of a social
             - `écrire la fonction JS pour récup les données et les afficher`
             - `changer l'ordre d'affichage des posts`
             - `scss des posts`
-            - quand je poste qqch, il faudrait que la textarea se vide et que le poste apparaisse immédiatement dessous (il semble qu'il ne rentre pas dans le fetch à l'intérieur de print someposts quand je soumets un post). On dirait qu'il ne lance pas du tout print someposts suite à submit post.
+            - `quand je poste qqch, il faudrait que la textarea se vide et que le poste apparaisse immédiatement dessous (il semble qu'il ne rentre pas dans le fetch à l'intérieur de print someposts quand je soumets un post). On dirait qu'il ne lance pas du tout print someposts suite à submit post.`
     Profile Page: Clicking on a username should load that user’s profile page. This page should:
         Display the number of followers the user has, as well as the number of people that the user follows.
         Display all of the posts for that user, in reverse chronological order.

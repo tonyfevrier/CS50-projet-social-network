@@ -26,7 +26,7 @@ function print_some_posts(whichposts){
         //create the html element containing the post 
         const post = document.createElement('div');
         post.className = "post-element";
-        post.innerHTML = `<p><strong>${element.username}</strong> <span> le ${element.date}</span><p>
+        post.innerHTML = `<button class="user-btn"><strong>${element.username}</strong></button class="user-btn"> <p><span> le ${element.date}</span><p>
                           <p class="post-text">${element.text}</p> 
                           <p>${element.likes} likes</p>`;
         document.querySelector('#allposts-content').append(post);
