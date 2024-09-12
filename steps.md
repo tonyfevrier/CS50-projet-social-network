@@ -39,6 +39,7 @@ Using Python, JavaScript, HTML, and CSS, complete the implementation of a social
             - `ajout d'un eventlistener sur ce bouton follow/unfollow`
             - requête à soumettre à une vue si on clique sur follow, modifier la bdd dans une vue pour l'ajouter à following du request user et aux followers de celui sur lequel on clique
             - écrire la fonction de l'eventLst
+            - relancer la page de profile une fois l'event Lst follow_or_unfollow fait pour voir le bouton transformé en Unfollow
             - test unitaire pour ça.
             - css du bouton follow, le centrer
     `Bug : `

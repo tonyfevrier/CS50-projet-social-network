@@ -113,8 +113,8 @@ def follow_or_unfollow(request, username):
         # Delete profile_user from following of request.user
         request_user.following.remove(username)
     else:
-        profile_user.followers.add(request.user.username)
-        request_user.following.add(username)
+        profile_user.followers.append(request.user.username)
+        request_user.following.append(username)
     
     profile_user.save()
     request_user.save()

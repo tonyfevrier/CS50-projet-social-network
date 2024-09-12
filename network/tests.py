@@ -1,9 +1,9 @@
 from django.test import TestCase
-from network.models import Post
+from network.models import Post, User
 
 import json
 
-class TestPost(TestCase):
+class TestNetwork(TestCase):
 
     def setUp(self):
         # Register and log in
@@ -38,19 +38,39 @@ class TestPost(TestCase):
 
         # Verify only the first post is transmitted for tony
         response = self.client.get('/profile/tony') 
-        self.assertDictEqual(response.json()['user_stats'],{'followers_number':0,'following_number':0})
+        self.assertDictEqual(response.json()['user_stats'],{'followers_number':0,'following_number':0,'username':'tony'})
         self.assertEqual(len(response.json()['posts']),1)
         self.assertEqual(response.json()['posts'][0]['text'], 'contenu du post')
         self.assertEqual(response.json()['userisowner'], False)
 
         # Verify only the second post is transmitted for marine
         response = self.client.get('/profile/marine') 
-        self.assertDictEqual(response.json()['user_stats'],{'followers_number':0,'following_number':0})
+        self.assertDictEqual(response.json()['user_stats'],{'followers_number':0,'following_number':0,'username':'marine'})
         self.assertEqual(len(response.json()['posts']),1)
         self.assertEqual(response.json()['posts'][0]['text'], 'contenu du post2')
         self.assertEqual(response.json()['userisowner'], True)
         
         
+    def test_follow_or_infollow(self):
+        self.register_and_log('marine','marine.moyon@gmail.com','1234','1234')
+
+        # Make a get request to follow marine
+        self.client.get('/follow/tony')
+
+        # Verify the database has been correctly updated
+        tony = User.objects.get(username='tony')
+        marine = User.objects.get(username='marine')
+        self.assertIn('tony',marine.following)
+        self.assertIn('marine',tony.followers)
+
+        # The same to unfollow
+        self.client.get('/follow/tony')
+        tony = User.objects.get(username='tony')
+        marine = User.objects.get(username='marine')
+        self.assertNotIn('tony',marine.following)
+        self.assertNotIn('marine',tony.followers)
+
+
     def register_and_log(self, user, email, password, confirmation):
         self.client.post('/register',data={'username':user,
                                            'email':email,
