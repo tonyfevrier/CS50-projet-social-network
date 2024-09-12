@@ -76,9 +76,17 @@ def register_post(request):
     return JsonResponse({'message':'post sent successfully'}, status=200)
 
 
+@login_required
 def view_some_posts(request, whichposts):
     """Returns some posts depending on the button clicked in the navbar"""
-    return JsonResponse([post.serialize() for post in Post.objects.order_by('-date').all()], safe=False)
+    if whichposts == "all":
+        return JsonResponse([post.serialize() for post in Post.objects.order_by('-date').all()], safe=False)
+    else:
+        # Recover the users the request user follows
+
+        # Recover the posts corresponding to these users  
+
+        return JsonResponse([post.serialize() for post in Post.objects.order_by('-date').all()], safe=False)
 
 
 def view_profile(request, username):
@@ -91,4 +99,24 @@ def view_profile(request, username):
                          'userisowner':request.user.username == username,
                          'userisfollower':request.user.username in profile_user.followers})
 
+
+def follow_or_unfollow(request, username):
+    # Look if request.user follows username
+    profile_user = User.objects.get(username = username)
+    request_user = User.objects.get(username = request.user.username)
+    userisfollower = request.user.username in profile_user.followers
+
+    if userisfollower:
+        # Delete request user from followers of profile_user
+        profile_user.followers.remove(request.user.username)
+
+        # Delete profile_user from following of request.user
+        request_user.following.remove(username)
+    else:
+        profile_user.followers.add(request.user.username)
+        request_user.following.add(username)
+    
+    profile_user.save()
+    request_user.save()
+    return JsonResponse({'message':"Update correctly done"},status = 200)
     

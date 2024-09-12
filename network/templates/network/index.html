@@ -3,11 +3,13 @@
 
 {% block body %}
     <div id="allposts-content">
+        {% if user.is_authenticated %}
         <div class="newpost">
             <p><strong>New post</strong></p>
             <textarea name="textarea-content" id="textarea-content" autocomplete="off" placeholder="Something to post?"></textarea>
             <button id="submit-post" hidden=true>Post</button>
         </div>
+        {% endif %}
     </div>
     <div id="profile-content"></div> 
 {% endblock %}

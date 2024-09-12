@@ -27,7 +27,7 @@ Using Python, JavaScript, HTML, and CSS, complete the implementation of a social
     Profile Page: Clicking on a username should load that user’s profile page. This page should:
         `Display the number of followers the user has, as well as the number of people that the user follows.`
         `Display all of the posts for that user, in reverse chronological order.`
-        For any other user who is signed in, this page should also display a “Follow” or “Unfollow” button that will let the current user toggle whether or not they are following this user’s posts. Note that this only applies to any “other” user: a user should not be able to follow themselves.
+        For any other user who is signed in, this page should also display a “Follow” or “Unfollow” button that will let the current user toggle whether or not they are following this user’s posts. Note that this only applies to any “other” user: a user should not be able to follow themselves. To verify
             - `comprendre comment récupérer l'objet User à partir juste du username : comment est créé son objet User`
             - `créer la vue qui génère la info et la rend`
             - `ajouter un eventlst à tout bouton de classe user-btn qui fait appel à cette vue (avec la fonction JS print_profile)`
@@ -36,11 +36,18 @@ Using Python, JavaScript, HTML, and CSS, complete the implementation of a social
             - `passer à la vue aussi un booléen pour savoir si l'owner suit username.`
             - `compléter le test unitaire pour vérifier les booléens`
             - `css des boutons toto et de la page profile en entier`
-    Bug : 
-        - quand on se log out, les posts des utilisateurs restent affichés : est-ce ok avec les spécifications
+            - `ajout d'un eventlistener sur ce bouton follow/unfollow`
+            - requête à soumettre à une vue si on clique sur follow, modifier la bdd dans une vue pour l'ajouter à following du request user et aux followers de celui sur lequel on clique
+            - écrire la fonction de l'eventLst
+            - test unitaire pour ça.
+            - css du bouton follow, le centrer
+    `Bug : `
+        -` quand on se log out, les posts des utilisateurs restent affichés : est-ce ok avec les spécifications`
     Following: The “Following” link in the navigation bar should take the user to a page where they see all posts made by users that the current user follows.
         This page should behave just as the “All Posts” page does, just with a more limited set of posts.
         This page should only be available to users who are signed in.
+            - adapter la vue pour ne transmettre que les posts correspondants
+            - écrire la requête en JS en cas de clic sur following
     Pagination: On any page that displays posts, posts should only be displayed 10 on a page. If there are more than ten posts, a “Next” button should appear to take the user to the next page of posts (which should be older than the current page of posts). If not on the first page, a “Previous” button should appear to take the user to the previous page of posts as well.
         See the Hints section for some suggestions on how to implement this.
             - aller voir comment lui à écrit sa vue JS dans commerce pour m'améliorer

@@ -52,14 +52,16 @@ function print_profile(event){
         user_infos.innerHTML = `<p>Number of followers: ${data.user_stats.followers_number}</p>
                                 <p>Following: ${data.user_stats.following_number} people</p>`
         
-        // Add a follow/unfollow button
+        // Add a follow/unfollow button and an eventListener
         if (!data.userisowner){
-            if (data.userisfollower) user_infos.innerHTML += '<button>Unfollow</button>'
-            else user_infos.innerHTML += '<button>Follow</button>'
+            if (data.userisfollower) user_infos.innerHTML += '<button class="follow">Unfollow</button>'
+            else user_infos.innerHTML += '<button class="follow">Follow</button>'
+            console.log(document.querySelector('.follow'));
         }
 
         // Add the html element to the DOM
         document.querySelector("#profile-content").append(user_infos);
+        if (document.querySelector('.follow')) document.querySelector('.follow').addEventListener('click', follow_or_unfollow);
 
         // Recover user posts and create elements
         data.posts.forEach(element => {
@@ -107,5 +109,8 @@ function submit_post(){
         print_some_posts('all');
     })
     .catch(error => console.log(error));
-
 }   
+
+function follow_or_unfollow(){
+    return;
+}
