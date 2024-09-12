@@ -48,7 +48,8 @@ function print_profile(event){
         // Recover profile infos and create element html 
         const user_infos = document.createElement('div');
         user_infos.innerHTML = `<p>Number of followers: ${data.user_stats.followers_number}</p>
-                                <p>Following: ${data.user_stats.following_number} people</p>` 
+                                <p>Following: ${data.user_stats.following_number} people</p>`
+                                 
         document.querySelector("#profile-content").append(user_infos);
 
         // Recover user posts and create elements
