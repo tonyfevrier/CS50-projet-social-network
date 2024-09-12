@@ -26,7 +26,7 @@ function print_some_posts(whichposts){
         //create the html element containing the post 
         const post = document.createElement('div');
         post.className = "post-element";
-        post.innerHTML = `<button class="user-btn"><strong>${element.username}</strong></button class="user-btn"> <p><span> le ${element.date}</span><p>
+        post.innerHTML = `<button class="user-btn">${element.username}</button> <p><span> le ${element.date}</span><p>
                           <p class="post-text">${element.text}</p> 
                           <p>${element.likes} likes</p>`;
         document.querySelector('#allposts-content').append(post);
@@ -38,6 +38,29 @@ function print_some_posts(whichposts){
 function print_profile(event){
     document.querySelector("#allposts-content").style.display = "none";
     document.querySelector("#profile-content").style.display = "block"; 
+    document.querySelector("#profile-content").innerHTML = "";
+ 
+    // Request to get the user informations
+    fetch(`/profile/${event.target.textContent}`)
+    .then(response => response.json())
+    .then(data => {
+
+        // Recover profile infos and create element html 
+        const user_infos = document.createElement('div');
+        user_infos.innerHTML = `<p>Number of followers: ${data.user_stats.followers_number}</p>
+                                <p>Following: ${data.user_stats.following_number} people</p>` 
+        document.querySelector("#profile-content").append(user_infos);
+
+        // Recover user posts and create elements
+        data.posts.forEach(element => {
+            const user_post = document.createElement('div');
+            user_post.className = "post-element";
+            user_post.innerHTML = `<p>${element.username}</p> <p><span> le ${element.date}</span><p>
+                              <p class="post-text">${element.text}</p> 
+                              <p>${element.likes} likes</p>`;
+            document.querySelector('#profile-content').append(user_post);
+        })
+    })
 }
 
 

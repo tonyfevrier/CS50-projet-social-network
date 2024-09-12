@@ -25,13 +25,14 @@ Using Python, JavaScript, HTML, and CSS, complete the implementation of a social
             - `scss des posts`
             - `quand je poste qqch, il faudrait que la textarea se vide et que le poste apparaisse immédiatement dessous (il semble qu'il ne rentre pas dans le fetch à l'intérieur de print someposts quand je soumets un post). On dirait qu'il ne lance pas du tout print someposts suite à submit post.`
     Profile Page: Clicking on a username should load that user’s profile page. This page should:
-        Display the number of followers the user has, as well as the number of people that the user follows.
-        Display all of the posts for that user, in reverse chronological order.
+        `Display the number of followers the user has, as well as the number of people that the user follows.`
+        `Display all of the posts for that user, in reverse chronological order.`
         For any other user who is signed in, this page should also display a “Follow” or “Unfollow” button that will let the current user toggle whether or not they are following this user’s posts. Note that this only applies to any “other” user: a user should not be able to follow themselves.
             - `comprendre comment récupérer l'objet User à partir juste du username : comment est créé son objet User`
             - `créer la vue qui génère la info et la rend`
-            - ajouter un eventlst à tout bouton de classe user-btn qui fait appel à cette vue (avec la fonction JS print_profile)
-            - on récupère l'user sur lequel on clique grâce à l'event en récupérant la valeur du bouton cliqué.
+            - `ajouter un eventlst à tout bouton de classe user-btn qui fait appel à cette vue (avec la fonction JS print_profile)`
+            - `on récupère l'user sur lequel on clique grâce à l'event en récupérant la valeur du bouton cliqué : écrire print profile`
+            - css des boutons toto et de la page profile en entier
     Following: The “Following” link in the navigation bar should take the user to a page where they see all posts made by users that the current user follows.
         This page should behave just as the “All Posts” page does, just with a more limited set of posts.
         This page should only be available to users who are signed in.

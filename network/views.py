@@ -86,6 +86,7 @@ def view_profile(request, username):
     posts = Post.objects.filter(user = user).order_by('-date')
     
     return JsonResponse({'user_stats':user.serialize(),
-                         'posts': [post.serialize() for post in posts]})
+                         'posts': [post.serialize() for post in posts],
+                         'userisowner':request.user.username == username})
 
     
