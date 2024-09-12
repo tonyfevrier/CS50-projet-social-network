@@ -41,12 +41,14 @@ class TestPost(TestCase):
         self.assertDictEqual(response.json()['user_stats'],{'followers_number':0,'following_number':0})
         self.assertEqual(len(response.json()['posts']),1)
         self.assertEqual(response.json()['posts'][0]['text'], 'contenu du post')
+        self.assertEqual(response.json()['userisowner'], False)
 
         # Verify only the second post is transmitted for marine
         response = self.client.get('/profile/marine') 
         self.assertDictEqual(response.json()['user_stats'],{'followers_number':0,'following_number':0})
         self.assertEqual(len(response.json()['posts']),1)
         self.assertEqual(response.json()['posts'][0]['text'], 'contenu du post2')
+        self.assertEqual(response.json()['userisowner'], True)
         
         
     def register_and_log(self, user, email, password, confirmation):

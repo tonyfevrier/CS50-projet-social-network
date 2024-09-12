@@ -80,13 +80,15 @@ def view_some_posts(request, whichposts):
     """Returns some posts depending on the button clicked in the navbar"""
     return JsonResponse([post.serialize() for post in Post.objects.order_by('-date').all()], safe=False)
 
+
 def view_profile(request, username):
     # Load user informations and all posts
-    user = User.objects.get(username = username)
-    posts = Post.objects.filter(user = user).order_by('-date')
+    profile_user = User.objects.get(username = username)
+    posts = Post.objects.filter(user = profile_user).order_by('-date')
     
-    return JsonResponse({'user_stats':user.serialize(),
+    return JsonResponse({'user_stats':profile_user.serialize(),
                          'posts': [post.serialize() for post in posts],
-                         'userisowner':request.user.username == username})
+                         'userisowner':request.user.username == username,
+                         'userisfollower':request.user.username in profile_user.followers})
 
     

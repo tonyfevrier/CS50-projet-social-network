@@ -49,7 +49,14 @@ function print_profile(event){
         const user_infos = document.createElement('div');
         user_infos.innerHTML = `<p>Number of followers: ${data.user_stats.followers_number}</p>
                                 <p>Following: ${data.user_stats.following_number} people</p>`
-                                 
+        
+        // Add a follow/unfollow button
+        if (!data.userisowner){
+            if (data.userisfollower) user_infos.innerHTML += '<button>Unfollow</button>'
+            else user_infos.innerHTML += '<button>Follow</button>'
+        }
+
+        // Add the html element to the DOM
         document.querySelector("#profile-content").append(user_infos);
 
         // Recover user posts and create elements

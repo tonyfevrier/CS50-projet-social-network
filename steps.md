@@ -32,9 +32,12 @@ Using Python, JavaScript, HTML, and CSS, complete the implementation of a social
             - `créer la vue qui génère la info et la rend`
             - `ajouter un eventlst à tout bouton de classe user-btn qui fait appel à cette vue (avec la fonction JS print_profile)`
             - `on récupère l'user sur lequel on clique grâce à l'event en récupérant la valeur du bouton cliqué : écrire print profile`
-            - tests unitaires pour les vues sans post
-            - passer à la vue aussi un booléen pour savoir si l'owner suit username.
+            - `tests unitaires pour les vues sans post`
+            - `passer à la vue aussi un booléen pour savoir si l'owner suit username.`
+            - `compléter le test unitaire pour vérifier les booléens`
             - css des boutons toto et de la page profile en entier
+    Bug : 
+        - quand on se log out, les posts de l'utilisateur restent affichés.
     Following: The “Following” link in the navigation bar should take the user to a page where they see all posts made by users that the current user follows.
         This page should behave just as the “All Posts” page does, just with a more limited set of posts.
         This page should only be available to users who are signed in.
