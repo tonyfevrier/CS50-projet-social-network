@@ -1,9 +1,8 @@
 document.addEventListener("DOMContentLoaded", function(){  
 
     // Choose the page to print
-    document.querySelector("#allposts-btn").addEventListener("click", print_some_posts);
-
-    if (document.querySelector("#profile-btn")) document.querySelector("#profile-btn").addEventListener("click", print_profile); 
+    document.querySelector("#allposts-btn").addEventListener("click", print_some_posts); 
+    if (document.querySelector("#profile-btn")) document.querySelector("#profile-btn").addEventListener("click", () => print_profile(document.querySelector("#profile-btn").textContent)); 
 
     // Authorize submission of a post only if there is an input
     document.querySelector("#textarea-content").addEventListener("input", allowsubmission);
@@ -31,18 +30,18 @@ function print_some_posts(whichposts){
                           <p class="post-text">${element.text}</p> 
                           <p>${element.likes} likes</p>`;
         document.querySelector('#allposts-content').append(post);
-        post.querySelector('.user-btn').addEventListener('click', print_profile);
+        post.querySelector('.user-btn').addEventListener('click', () => print_profile(element.username));
     }))
 }
 
 
-function print_profile(event){
+function print_profile(username){
     document.querySelector("#allposts-content").style.display = "none";
     document.querySelector("#profile-content").style.display = "block"; 
     document.querySelector("#profile-content").innerHTML = "";
  
     // Request to get the user informations
-    fetch(`/profile/${event.target.textContent}`)
+    fetch(`/profile/${username}`)
     .then(response => response.json())
     .then(data => {
 
@@ -113,9 +112,13 @@ function submit_post(){
 function follow_or_unfollow(event){
 
     // Recover the profile user 
-    const username = event.target.className.split('-')[1]; 
+    const username = event.target.className.split('-')[1];  
     
     // Make a request to toggle this user from following
     fetch(`/follow/${username}`)
+    .then(response => {
+        // Update the actuel profile page
+        print_profile(username)
+    })
     .catch(error => console.log(error));
 }
