@@ -42,7 +42,7 @@ Using Python, JavaScript, HTML, and CSS, complete the implementation of a social
             - `relancer la page de profile une fois l'event Lst follow_or_unfollow fait pour voir le bouton transformé en Unfollow`
             - `test unitaire pour ça`
             - `voir pour à la fin de la requête relancer la page de profil actuelle (de l'utilisateur qu'on regardait) mise à jour : il faudra ptet mettre username à l'url profile.`
-            - css du bouton follow, le centrer
+            - `css du bouton follow, le centrer`
     `Bug : `
         -` quand on se log out, les posts des utilisateurs restent affichés : est-ce ok avec les spécifications`
     Following: The “Following” link in the navigation bar should take the user to a page where they see all posts made by users that the current user follows.

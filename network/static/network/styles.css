@@ -46,7 +46,7 @@
 }
 .body .post-element button:hover {
   opacity: 1;
-  text-decoration: underline;
+  color: blue;
 }
 .body .post-element span {
   color: grey;
@@ -66,4 +66,16 @@
   font-style: italic;
   font-size: 14px;
   padding: 10px;
+  margin: 0;
+}
+.body .user-infos button {
+  margin-left: 50px;
+  width: -moz-fit-content;
+  width: fit-content;
+  background: transparent;
+  opacity: 0.7;
+}
+.body .user-infos button:hover {
+  opacity: 1;
+  color: blue;
 }/*# sourceMappingURL=styles.css.map */
