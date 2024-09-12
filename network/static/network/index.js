@@ -26,7 +26,8 @@ function print_some_posts(whichposts){
         //create the html element containing the post 
         const post = document.createElement('div');
         post.className = "post-element";
-        post.innerHTML = `<button class="user-btn">${element.username}</button> <p><span> le ${element.date}</span><p>
+        post.innerHTML = `<button class="user-btn">${element.username}</button> 
+                          <p><span>le ${element.date}</span><p>
                           <p class="post-text">${element.text}</p> 
                           <p>${element.likes} likes</p>`;
         document.querySelector('#allposts-content').append(post);
@@ -47,6 +48,7 @@ function print_profile(event){
 
         // Recover profile infos and create element html 
         const user_infos = document.createElement('div');
+        user_infos.className = 'user-infos'
         user_infos.innerHTML = `<p>Number of followers: ${data.user_stats.followers_number}</p>
                                 <p>Following: ${data.user_stats.following_number} people</p>`
         

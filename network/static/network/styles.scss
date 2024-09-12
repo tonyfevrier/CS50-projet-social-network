@@ -42,6 +42,19 @@
         border:1px solid lightgray;
         padding: 10px;
 
+        button{
+            border: none;
+            background: transparent;
+            opacity:0.7;
+            font-weight: 600;
+            padding: 0;
+
+            &:hover{
+                opacity: 1;
+                text-decoration: underline;
+            }
+        }
+
         span{
             color: grey;
             font-size: 12px;
@@ -49,6 +62,20 @@
 
         .post-text{
             font-size: 12px;
+        }
+    }
+
+    .user-infos{
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        border:1px lightgray solid;
+        background-color: rgb(240, 238, 238);
+
+        p{
+            font-style: italic;
+            font-size: 14px;
+            padding: 10px;
         }
     }
 }

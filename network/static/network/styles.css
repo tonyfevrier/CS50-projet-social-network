@@ -37,10 +37,33 @@
   border: 1px solid lightgray;
   padding: 10px;
 }
+.body .post-element button {
+  border: none;
+  background: transparent;
+  opacity: 0.7;
+  font-weight: 600;
+  padding: 0;
+}
+.body .post-element button:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
 .body .post-element span {
   color: grey;
   font-size: 12px;
 }
 .body .post-element .post-text {
   font-size: 12px;
+}
+.body .user-infos {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border: 1px lightgray solid;
+  background-color: rgb(240, 238, 238);
+}
+.body .user-infos p {
+  font-style: italic;
+  font-size: 14px;
+  padding: 10px;
 }/*# sourceMappingURL=styles.css.map */
