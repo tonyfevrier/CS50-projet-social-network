@@ -19,11 +19,14 @@ function print_some_posts(whichposts){
     document.querySelector("#allposts-content").style.display = "block";
     document.querySelector("#profile-content").style.display ="none"; 
 
+    // Hide the eventual posts printed before
+    document.querySelectorAll('.post-element').forEach(element => element.style.display = 'none');
+
     // Request the API to load the appropriate set of posts
     fetch(`/someposts/${whichposts}`)
     .then(response => response.json())
     .then(data => data.forEach(element => {
-        //create the html element containing the post 
+        //create the html element containing the post  
         const post = document.createElement('div');
         post.className = "post-element";
         post.innerHTML = `<button class="user-btn">${element.username}</button> 
@@ -31,8 +34,9 @@ function print_some_posts(whichposts){
                           <p class="post-text">${element.text}</p> 
                           <p>${element.likes} likes</p>`;
         document.querySelector('#allposts-content').append(post);
-        post.querySelector('.user-btn').addEventListener('click', () => print_profile(element.username));
+        post.querySelector('.user-btn').addEventListener('click', () => print_profile(element.username))
     }))
+    .catch(error => console.log(error));
 }
 
 

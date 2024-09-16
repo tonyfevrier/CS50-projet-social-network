@@ -52,8 +52,6 @@ class TestNetwork(TestCase):
         self.assertIn('buongiorno', [post['text'] for post in response.json()])
         self.assertNotIn('hello', [post['text'] for post in response.json()])
 
-
-
     def test_view_profile(self):
         """Verify that the good informations are transmitted by view_profile"""
         # Submit two posts from two users
