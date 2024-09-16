@@ -45,12 +45,16 @@ Using Python, JavaScript, HTML, and CSS, complete the implementation of a social
             - `css du bouton follow, le centrer`
     `Bug : `
         -` quand on se log out, les posts des utilisateurs restent affichés : est-ce ok avec les spécifications`
-    Following: The “Following” link in the navigation bar should take the user to a page where they see all posts made by users that the current user follows.
-        This page should behave just as the “All Posts” page does, just with a more limited set of posts.
-        This page should only be available to users who are signed in.
-            - adapter la vue pour ne transmettre que les posts correspondants
-            - écrire la requête en JS en cas de clic sur following
-            - test pour faire une requête à la vue et voir si elle transmet les posts uniquement du follower.
+    `Following: The “Following” link in the navigation bar should take the user to a page where they see all posts made by users that the current user follows.`
+        `This page should behave just as the “All Posts” page does, just with a more limited set of posts.`
+        `This page should only be available to users who are signed in.`
+            - `adapter la vue pour ne transmettre que les posts correspondants`
+            - `écrire la requête en JS en cas de clic sur following`
+            - `test pour faire une requête à la vue et voir si elle transmet les posts uniquement du follower.`
+    `Modify to authorize the user to view all posts when not logged in`
+        - `enlever le login required to print posts mais l'imposer pour la vue sur following`
+        - `voir si ça tourne : accès à folliwng en étant log, et via l'url en ne l'étant pas.` 
+        - `afficher l'erreur via le JS si on n'est pas logged.`
     Pagination: On any page that displays posts, posts should only be displayed 10 on a page. If there are more than ten posts, a “Next” button should appear to take the user to the next page of posts (which should be older than the current page of posts). If not on the first page, a “Previous” button should appear to take the user to the previous page of posts as well.
         See the Hints section for some suggestions on how to implement this.
             - aller voir comment lui à écrit sa vue JS dans commerce pour m'améliorer
