@@ -24,7 +24,7 @@ Using Python, JavaScript, HTML, and CSS, complete the implementation of a social
             - `changer l'ordre d'affichage des posts`
             - `scss des posts`
             - `quand je poste qqch, il faudrait que la textarea se vide et que le poste apparaisse immédiatement dessous (il semble qu'il ne rentre pas dans le fetch à l'intérieur de print someposts quand je soumets un post). On dirait qu'il ne lance pas du tout print someposts suite à submit post.`
-    Profile Page: Clicking on a username should load that user’s profile page. This page should:
+    `Profile Page: Clicking on a username should load that user’s profile page. This page should:`
         `Display the number of followers the user has, as well as the number of people that the user follows.`
         `Display all of the posts for that user, in reverse chronological order.`
         `For any other user who is signed in, this page should also display a “Follow” or “Unfollow” button that will let the current user toggle whether or not they are following this user’s posts. Note that this only applies to any “other” user: a user should not be able to follow themselves. To verify`
@@ -50,6 +50,7 @@ Using Python, JavaScript, HTML, and CSS, complete the implementation of a social
         This page should only be available to users who are signed in.
             - adapter la vue pour ne transmettre que les posts correspondants
             - écrire la requête en JS en cas de clic sur following
+            - test pour faire une requête à la vue et voir si elle transmet les posts uniquement du follower.
     Pagination: On any page that displays posts, posts should only be displayed 10 on a page. If there are more than ten posts, a “Next” button should appear to take the user to the next page of posts (which should be older than the current page of posts). If not on the first page, a “Previous” button should appear to take the user to the previous page of posts as well.
         See the Hints section for some suggestions on how to implement this.
             - aller voir comment lui à écrit sa vue JS dans commerce pour m'améliorer

@@ -83,10 +83,10 @@ def view_some_posts(request, whichposts):
         return JsonResponse([post.serialize() for post in Post.objects.order_by('-date').all()], safe=False)
     else:
         # Recover the users the request user follows
+        following = User.objects.get(username=request.user).following
 
         # Recover the posts corresponding to these users  
-
-        return JsonResponse([post.serialize() for post in Post.objects.order_by('-date').all()], safe=False)
+        return JsonResponse([post.serialize() for post in Post.objects.filter(user__username__in=following).order_by('-date').all()], safe=False)
 
 
 def view_profile(request, username):

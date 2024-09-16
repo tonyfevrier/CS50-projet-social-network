@@ -29,6 +29,31 @@ class TestNetwork(TestCase):
         self.assertIn('contenu du post2', [response.json()[0]['text'], response.json()[1]['text']])
         self.assertIn('contenu du post', [response.json()[0]['text'], response.json()[1]['text']]) 
 
+    def test_view_profile_posts(self):
+        """Verify if only the following posts are printed when we click on following"""
+        # Create four users including tony posting something 
+        self.register_log_and_submit('marine','m@gmail.com','1234','1234', 'coucou', "bonjour je m'appelle marine")
+        self.register_log_and_submit('henri','h@gmail.com','1234','1234', 'hello')
+        self.register_log_and_submit('yann','y@gmail.com','1234','1234', 'buongiorno')
+        self.login('tony','1234')
+
+        # Click on following but nothing is sent
+        response = self.client.get('/someposts/following') 
+        self.assertEqual(len(response.json()), 0)
+
+        # Follow two among them
+        self.client.get('/follow/marine')
+        self.client.get('/follow/yann')
+
+        # Click on following and verify the posts of marine and yann are sent but not those of henri
+        response = self.client.get('/someposts/following') 
+        self.assertIn('coucou', [post['text'] for post in response.json()])
+        self.assertIn("bonjour je m'appelle marine", [post['text'] for post in response.json()])
+        self.assertIn('buongiorno', [post['text'] for post in response.json()])
+        self.assertNotIn('hello', [post['text'] for post in response.json()])
+
+
+
     def test_view_profile(self):
         """Verify that the good informations are transmitted by view_profile"""
         # Submit two posts from two users
@@ -79,8 +104,21 @@ class TestNetwork(TestCase):
         self.client.post('/login',data={'username':user,
                                         "password":password})
         
+    def login(self, user, password): 
+        self.client.post('/login',data={'username':user,
+                                        "password":password})
+        
     def submit_a_post(self,content):
         self.client.post("/post", 
                          data=json.dumps({'post_content':content}),
                          content_type='application/json')
+    
+    def logout(self):
+        self.client.get('/logout')
+
+    def register_log_and_submit(self,  user, email, password, confirmation, *posts):
+        self.register_and_log(user, email, password, confirmation)
+        for post in posts:
+            self.submit_a_post(post)
+        self.logout()
         

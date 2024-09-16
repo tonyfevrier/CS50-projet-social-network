@@ -1,9 +1,10 @@
 document.addEventListener("DOMContentLoaded", function(){  
 
     // Choose the page to print
-    document.querySelector("#allposts-btn").addEventListener("click", print_some_posts); 
+    document.querySelector("#allposts-btn").addEventListener("click", () => print_some_posts('all')); 
+    document.querySelector("#following-btn").addEventListener("click", () => print_some_posts('following'));
     if (document.querySelector("#profile-btn")) document.querySelector("#profile-btn").addEventListener("click", () => print_profile(document.querySelector("#profile-btn").textContent)); 
-
+    
     // Authorize submission of a post only if there is an input
     document.querySelector("#textarea-content").addEventListener("input", allowsubmission);
 
