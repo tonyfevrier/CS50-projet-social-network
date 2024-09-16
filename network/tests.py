@@ -22,12 +22,22 @@ class TestNetwork(TestCase):
         self.submit_a_post('contenu du post')
         self.submit_a_post('contenu du post2')
         
-        response = self.client.get('/someposts/all')
-        self.assertEqual(len(response.json()),2)
-        self.assertEqual(response.json()[0]['username'], 'tony')
-        self.assertEqual(response.json()[1]['username'], 'tony')
-        self.assertIn('contenu du post2', [response.json()[0]['text'], response.json()[1]['text']])
-        self.assertIn('contenu du post', [response.json()[0]['text'], response.json()[1]['text']]) 
+        response = self.client.get('/someposts/all?param1=1')
+        self.assertEqual(len(response.json()['posts']),2)
+        self.assertEqual(response.json()['posts'][0]['username'], 'tony')
+        self.assertEqual(response.json()['posts'][1]['username'], 'tony')
+        self.assertIn('contenu du post2', [response.json()['posts'][0]['text'], response.json()['posts'][1]['text']])
+        self.assertIn('contenu du post', [response.json()['posts'][0]['text'], response.json()['posts'][1]['text']]) 
+
+    def test_view_multiple_posts(self):
+        """ Create a lot of tests and verify if only ten posts are transmitted"""
+        for i in range(22):
+            self.submit_a_post('contenu du post')
+
+        response = self.client.get('/someposts/all?param1=1')
+        self.assertEqual(len(response.json()['posts']),10)
+        self.assertEqual(response.json()['previous'], False)
+        self.assertEqual(response.json()['next'], True)
 
     def test_view_profile_posts(self):
         """Verify if only the following posts are printed when we click on following"""
@@ -38,19 +48,19 @@ class TestNetwork(TestCase):
         self.login('tony','1234')
 
         # Click on following but nothing is sent
-        response = self.client.get('/someposts/following') 
-        self.assertEqual(len(response.json()), 0)
+        response = self.client.get('/someposts/following?param1=1') 
+        self.assertEqual(len(response.json()['posts']), 0)
 
         # Follow two among them
         self.client.get('/follow/marine')
         self.client.get('/follow/yann')
 
         # Click on following and verify the posts of marine and yann are sent but not those of henri
-        response = self.client.get('/someposts/following') 
-        self.assertIn('coucou', [post['text'] for post in response.json()])
-        self.assertIn("bonjour je m'appelle marine", [post['text'] for post in response.json()])
-        self.assertIn('buongiorno', [post['text'] for post in response.json()])
-        self.assertNotIn('hello', [post['text'] for post in response.json()])
+        response = self.client.get('/someposts/following?param1=1') 
+        self.assertIn('coucou', [post['text'] for post in response.json()['posts']])
+        self.assertIn("bonjour je m'appelle marine", [post['text'] for post in response.json()['posts']])
+        self.assertIn('buongiorno', [post['text'] for post in response.json()['posts']])
+        self.assertNotIn('hello', [post['text'] for post in response.json()['posts']])
 
     def test_view_profile(self):
         """Verify that the good informations are transmitted by view_profile"""
