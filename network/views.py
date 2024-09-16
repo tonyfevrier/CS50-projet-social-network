@@ -96,7 +96,8 @@ def view_some_posts(request, whichposts):
     actual_page = p.page(request.GET.get("param1"))
     return JsonResponse({"posts":[post.serialize() for post in actual_page.object_list],
                          "previous":actual_page.has_previous(),
-                         "next":actual_page.has_next()}, safe=False)
+                         "next":actual_page.has_next(),
+                         "number_posts":len(posts)}, safe=False)
 
 
 def view_profile(request, username):

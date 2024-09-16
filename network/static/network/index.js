@@ -1,11 +1,11 @@
 document.addEventListener("DOMContentLoaded", function(){  
 
     // Choose the page to print
-    document.querySelector("#allposts-btn").addEventListener("click", () => print_some_posts('all'));  
+    document.querySelector("#allposts-btn").addEventListener("click", () => print_some_posts('all', 1));  
 
     // Events if user is logged in
     if (document.querySelector("#profile-btn")){
-        document.querySelector("#following-btn").addEventListener("click", () => print_some_posts('following'));
+        document.querySelector("#following-btn").addEventListener("click", () => print_some_posts('following', 1));
         document.querySelector("#profile-btn").addEventListener("click", () => print_profile(document.querySelector("#profile-btn").textContent)); 
         
         // Authorize submission of a post only if there is an input
@@ -15,22 +15,27 @@ document.addEventListener("DOMContentLoaded", function(){
         document.querySelector('#submit-post').addEventListener("click", submit_post);
     }
 
-    print_some_posts('all');
+    print_some_posts('all', 1);
 }); 
 
-function print_some_posts(whichposts){
+function print_some_posts(whichposts, page_number){
     // Print the block of posts, hide profile block  
     document.querySelector("#allposts-content").style.display = "block";
     document.querySelector("#profile-content").style.display ="none"; 
 
-    // Hide the eventual posts printed before
-    if (document.querySelectorAll('.post-element')) document.querySelectorAll('.post-element').forEach(element => element.style.display = 'none');
+    // Hide the eventual posts printed before and the next/previous buttons
+    if (document.querySelectorAll('.post-element')) document.querySelectorAll('.post-element').forEach(element => element.remove());
+    if (document.querySelector('.next')) document.querySelector('.next').remove();
+    if (document.querySelector('.previous')) document.querySelector('.previous').remove();
     
     // Request the API to load the appropriate set of posts
-    fetch(`/someposts/${whichposts}`)
+    fetch(`/someposts/${whichposts}?param1=${page_number}`)
     .then(response => response.json())
-    .then(data => data.forEach(element => {
-        //create the html element containing the post  
+    .then(data => {
+
+        //  Print each post
+        data["posts"].forEach(element => {
+        // Create the html element containing the post  
         const post = document.createElement('div');
         post.className = "post-element";
         post.innerHTML = `<button class="user-btn">${element.username}</button> 
@@ -38,8 +43,25 @@ function print_some_posts(whichposts){
                           <p class="post-text">${element.text}</p> 
                           <p>${element.likes} likes</p>`;
         document.querySelector('#allposts-content').append(post);
-        post.querySelector('.user-btn').addEventListener('click', () => print_profile(element.username))
-    }))
+        post.querySelector('.user-btn').addEventListener('click', () => print_profile(element.username));
+        })
+
+        // Add buttons next/previous to change the slot of posts 
+        if (data['previous']){
+            const previous = document.createElement('button');
+            previous.className = "previous";
+            previous.innerHTML = "Previous";
+            document.querySelector('#allposts-content').append(previous);
+            previous.addEventListener('click', () => print_some_posts(whichposts, page_number - 1));
+        } 
+        if (data['next']){
+            const next = document.createElement('button');
+            next.className = "next";
+            next.innerHTML = "Next";
+            document.querySelector('#allposts-content').append(next);
+            next.addEventListener('click', () => print_some_posts(whichposts, page_number + 1));
+        } 
+    })
     .catch(error => console.log(error));
 }
 
@@ -114,7 +136,7 @@ function submit_post(){
         document.querySelectorAll('.post-element').forEach(element => element.style.display = 'none');
 
         // Print all posts 
-        print_some_posts('all');
+        print_some_posts('all', 1);
     })
     .catch(error => console.log(error));
 }   

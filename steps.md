@@ -55,13 +55,13 @@ Using Python, JavaScript, HTML, and CSS, complete the implementation of a social
         - `enlever le login required to print posts mais l'imposer pour la vue sur following`
         - `voir si ça tourne : accès à folliwng en étant log, et via l'url en ne l'étant pas.` 
         - `afficher l'erreur via le JS si on n'est pas logged.`
-    Pagination: On any page that displays posts, posts should only be displayed 10 on a page. If there are more than ten posts, a “Next” button should appear to take the user to the next page of posts (which should be older than the current page of posts). If not on the first page, a “Previous” button should appear to take the user to the previous page of posts as well.
-        - je passe un entier le numéro de la page actuelle en query param dans l'url
+    `Pagination: On any page that displays posts, posts should only be displayed 10 on a page. If there are more than ten posts, a “Next” button should appear to take the user to the next page of posts (which should be older than the current page of posts). If not on the first page, a “Previous” button should appear to take the user to the previous page of posts as well.`
+        - `je passe un entier le numéro de la page actuelle en query param dans l'url`
         - `créer un paginator de 10`
         - `on transmet l'objectlist, has previous et has next`
-        - suivant les résultats on affiche ou non un bouton next previous
-        - test unitaire pour vérifier que 10 slt affichés
-        See the Hints section for some suggestions on how to implement this.
+        - `suivant les résultats on affiche ou non un bouton next previous`
+        - `test unitaire pour vérifier que 10 slt affichés`
+        `See the Hints section for some suggestions on how to implement this.`
             - aller voir comment lui à écrit sa vue JS dans commerce pour m'améliorer
     Edit Post: Users should be able to click an “Edit” button or link on any of their own posts to edit that post.
         When a user clicks “Edit” for one of their own posts, the content of their post should be replaced with a textarea where the user can edit the content of their post.
