@@ -55,6 +55,23 @@
 .body .post-element .post-text {
   font-size: 12px;
 }
+.body .nav-buttons {
+  display: flex;
+  align-items: center;
+  padding: 20px 0;
+}
+.body .nav-buttons button {
+  background-color: transparent;
+}
+.body .nav-buttons button:hover {
+  background-color: lightgray;
+  color: blue;
+}
+.body .nav-buttons .next {
+  width: -moz-fit-content;
+  width: fit-content;
+  margin-left: auto;
+}
 .body .user-infos {
   display: flex;
   justify-content: flex-start;

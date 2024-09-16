@@ -25,8 +25,7 @@ function print_some_posts(whichposts, page_number){
 
     // Hide the eventual posts printed before and the next/previous buttons
     if (document.querySelectorAll('.post-element')) document.querySelectorAll('.post-element').forEach(element => element.remove());
-    if (document.querySelector('.next')) document.querySelector('.next').remove();
-    if (document.querySelector('.previous')) document.querySelector('.previous').remove();
+    if (document.querySelector('.nav-buttons')) document.querySelector('.nav-buttons').remove(); 
     
     // Request the API to load the appropriate set of posts
     fetch(`/someposts/${whichposts}?param1=${page_number}`)
@@ -46,19 +45,23 @@ function print_some_posts(whichposts, page_number){
         post.querySelector('.user-btn').addEventListener('click', () => print_profile(element.username));
         })
 
-        // Add buttons next/previous to change the slot of posts 
+        // Add buttons next/previous to change the slot of posts
+        const nav_buttons = document.createElement('div');
+        nav_buttons.className = "nav-buttons";
+        document.querySelector('#allposts-content').append(nav_buttons);        
+
         if (data['previous']){
             const previous = document.createElement('button');
             previous.className = "previous";
             previous.innerHTML = "Previous";
-            document.querySelector('#allposts-content').append(previous);
+            nav_buttons.append(previous);
             previous.addEventListener('click', () => print_some_posts(whichposts, page_number - 1));
         } 
         if (data['next']){
             const next = document.createElement('button');
             next.className = "next";
             next.innerHTML = "Next";
-            document.querySelector('#allposts-content').append(next);
+            nav_buttons.append(next);
             next.addEventListener('click', () => print_some_posts(whichposts, page_number + 1));
         } 
     })

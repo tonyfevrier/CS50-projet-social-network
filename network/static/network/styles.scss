@@ -65,6 +65,26 @@
         }
     }
 
+    .nav-buttons{
+        display: flex; 
+        align-items: center;
+        padding: 20px 0;
+
+        button{
+            background-color: transparent;
+
+            &:hover{
+                background-color: lightgray;
+                color:blue;
+            }
+        }
+
+        .next{
+            width:fit-content;
+            margin-left: auto;
+        }
+    } 
+
     .user-infos{
         display: flex;
         justify-content: flex-start;
