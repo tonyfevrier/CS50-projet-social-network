@@ -4,6 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
+from django.core.paginator import Paginator
 
 from .models import User, Post
 import json
@@ -79,16 +80,23 @@ def register_post(request):
 def view_some_posts(request, whichposts):
     """Returns some posts depending on the button clicked in the navbar"""
     if whichposts == "all":
-        return JsonResponse([post.serialize() for post in Post.objects.order_by('-date').all()], safe=False)
+        posts = Post.objects.order_by('-date').all() 
     else:
         if request.user.is_authenticated:
             # Recover the users the request user follows
             following = User.objects.get(username=request.user).following
 
-            # Recover the posts corresponding to these users  
-            return JsonResponse([post.serialize() for post in Post.objects.filter(user__username__in=following).order_by('-date').all()], safe=False)
+            # Recover the posts corresponding to these users 
+            posts = Post.objects.filter(user__username__in=following).order_by('-date').all() 
         else:
             return JsonResponse({'message':'You must log in to access this page'}, status=404)
+    
+    # Create a paginator with ten posts pages, get the actual page and send the post informations
+    p = Paginator(posts, 10)
+    actual_page = p.page(request.GET.get("param1"))
+    return JsonResponse({"posts":[post.serialize() for post in actual_page.object_list],
+                         "previous":actual_page.has_previous(),
+                         "next":actual_page.has_next()}, safe=False)
 
 
 def view_profile(request, username):
