@@ -145,6 +145,9 @@ function follow_or_unfollow(event){
 function pass_in_edition_mode(event){
     /* Get a textarea to edit a given post */
 
+    // Prevent multiple textarea from opening before saving one 
+    if (document.querySelector('.save-btn')) return;
+
     // Recover the corresponding post and hide its content
     const post = event.target.parentElement;
     const content = post.querySelector('.post-text');
@@ -152,13 +155,25 @@ function pass_in_edition_mode(event){
 
     // Create a textarea and a save button
     const form = document.createElement('div');
-    form.innerHTML = `<textarea>${content.textContent}</textarea><button class="save-btn">Save</button>`
+    form.id = "post-form";
+    form.innerHTML = `<textarea class='edit-content'>${content.textContent}</textarea><button class="save-btn">Save</button>`
     content.after(form);
-    document.querySelector('.save-btn').addEventListener('click', edit_post);     
+    document.querySelector('.save-btn').addEventListener('click', edit_post);    
 }
 
 function edit_post(){
-    return
+    const csrf_token = document.querySelector('meta[name="csrf-token"]').content;
+
+    fetch('/editpost',{
+        method: "POST",
+        headers:{
+            'X-CSRFToken':csrf_token,
+        },
+        body:JSON.stringify({
+            content:`${document.querySelector('.edit-content').value}`,
+        })
+    })
+    .catch(error => console.log(error));
 }
 
 // Utils for refactoring
@@ -175,6 +190,7 @@ function create_a_post_element(element, request_user){
     // Add an edition button for request user posts
     if (request_user === element.username){
         const edit_button = document.createElement("button");
+        edit_button.className = "edit"
         edit_button.innerHTML = "Edit the page";
         post.append(edit_button); 
         edit_button.addEventListener('click', pass_in_edition_mode);

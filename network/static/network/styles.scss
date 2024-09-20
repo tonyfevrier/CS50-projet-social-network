@@ -47,7 +47,7 @@
             background: transparent;
             opacity:0.7;
             font-weight: 600;
-            padding: 0;
+            padding: 0; 
 
             &:hover{
                 opacity: 1; 
@@ -63,6 +63,21 @@
         .post-text{
             font-size: 12px;
         }
+
+        #post-form{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            
+            textarea{
+                width:90%;
+            }
+
+            button{
+                margin:20px;
+            }
+        }
+        
     }
 
     .nav-buttons{

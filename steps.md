@@ -69,8 +69,10 @@ Using Python, JavaScript, HTML, and CSS, complete the implementation of a social
             `ajouter un bouton edit si le post est un du request user pour Allposts et post profile`
             `factoriser index.js`
             `ajouter un event listener dessus`
-            fonction JS qui remplace le texte par textarea contenant le précédent test et un bouton save
-            event listener sur le bouton save
+            `fonction JS qui remplace le texte par textarea contenant le précédent test et un bouton save`
+            `event listener sur le bouton save`
+            `css de save et textarea`
+            `bug : plusieurs clics successifs de edit donnent lieu à plusieurs textarea : il faudrait bloquer ce bouton tant que pas save`
             écrire une vue view pour l'edition du post et la modif en bdd
             écrire la fonction JS qui fait la requête et recharge la page actuelle avec les posts mis à jour (date inchangée)
             test unitaire qui vérifie si la bdd est bien modifiée + l'envoi des bonnes données au JS.

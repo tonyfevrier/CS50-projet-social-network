@@ -132,4 +132,14 @@ def follow_or_unfollow(request, username):
     profile_user.save()
     request_user.save()
     return JsonResponse({'message':"Update correctly done"},status = 200)
+
+@login_required
+def edit_post(request):
+    # Get the text of the textarea
+    content = json.loads(request.json())
+    content.get('b')
+
+    # Register this text in the database
+    
+    pass
     

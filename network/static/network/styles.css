@@ -55,6 +55,17 @@
 .body .post-element .post-text {
   font-size: 12px;
 }
+.body .post-element #post-form {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.body .post-element #post-form textarea {
+  width: 90%;
+}
+.body .post-element #post-form button {
+  margin: 20px;
+}
 .body .nav-buttons {
   display: flex;
   align-items: center;
