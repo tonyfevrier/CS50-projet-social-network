@@ -134,12 +134,14 @@ def follow_or_unfollow(request, username):
     return JsonResponse({'message':"Update correctly done"},status = 200)
 
 @login_required
-def edit_post(request):
-    # Get the text of the textarea
-    content = json.loads(request.json())
-    content.get('b')
+def edit_post(request, id):
+    if request.method != "POST":
+        return JsonResponse({'error':'Post edition failed'}, status=404) 
 
-    # Register this text in the database
-    
-    pass
-    
+    # Get the text of the textarea and register it in the database
+    data = json.loads(request.body)
+    post = Post.objects.get(id=id)
+    post.text = data.get('content')
+    post.save()
+
+    return JsonResponse({'message':'Post edited'}, status=200) 

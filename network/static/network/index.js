@@ -158,13 +158,13 @@ function pass_in_edition_mode(event){
     form.id = "post-form";
     form.innerHTML = `<textarea class='edit-content'>${content.textContent}</textarea><button class="save-btn">Save</button>`
     content.after(form);
-    document.querySelector('.save-btn').addEventListener('click', edit_post);    
+    document.querySelector('.save-btn').addEventListener('click', () => edit_post(post.id));    
 }
 
-function edit_post(){
+function edit_post(id){
     const csrf_token = document.querySelector('meta[name="csrf-token"]').content;
 
-    fetch('/editpost',{
+    fetch(`/editpost/${id}`,{
         method: "POST",
         headers:{
             'X-CSRFToken':csrf_token,
