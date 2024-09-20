@@ -39,6 +39,14 @@ class TestNetwork(TestCase):
         self.assertEqual(response.json()['previous'], False)
         self.assertEqual(response.json()['next'], True)
 
+    def test_view_all_posts_with_multiple_users(self):
+        """Several users create posts and thoses posts appear in all posts"""
+        self.submit_a_post('contenu du post')
+        self.register_log_and_submit('marine','m@gmail.com','1234','1234', 'coucou', "bonjour je m'appelle marine")
+        self.register_log_and_submit('henri','h@gmail.com','1234','1234', 'hello')
+        response = self.client.get('/someposts/all?param1=1') 
+        self.assertIn('tony', [post['username'] for post in response.json()['posts']]) 
+
     def test_view_profile_posts(self):
         """Verify if only the following posts are printed when we click on following"""
         # Create four users including tony posting something 
