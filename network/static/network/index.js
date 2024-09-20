@@ -18,6 +18,8 @@ document.addEventListener("DOMContentLoaded", function(){
     print_some_posts('all', 1);
 }); 
 
+// Event handlers
+
 function print_some_posts(whichposts, page_number){
     // Print the block of posts, hide profile block  
     document.querySelector("#allposts-content").style.display = "block";
@@ -34,36 +36,17 @@ function print_some_posts(whichposts, page_number){
 
         //  Print each post
         data["posts"].forEach(element => {
-        // Create the html element containing the post  
-        const post = document.createElement('div');
-        post.className = "post-element";
-        post.innerHTML = `<button class="user-btn">${element.username}</button> 
-                          <p><span>le ${element.date}</span><p>
-                          <p class="post-text">${element.text}</p> 
-                          <p>${element.likes} likes</p>`;
+
+        // Create the html element containing the post   
+        const post = create_a_post_element(element, data["requestuser"]);
+
+        // Add the post to the DOM
         document.querySelector('#allposts-content').append(post);
         post.querySelector('.user-btn').addEventListener('click', () => print_profile(element.username));
         })
 
         // Add buttons next/previous to change the slot of posts
-        const nav_buttons = document.createElement('div');
-        nav_buttons.className = "nav-buttons";
-        document.querySelector('#allposts-content').append(nav_buttons);        
-
-        if (data['previous']){
-            const previous = document.createElement('button');
-            previous.className = "previous";
-            previous.innerHTML = "Previous";
-            nav_buttons.append(previous);
-            previous.addEventListener('click', () => print_some_posts(whichposts, page_number - 1));
-        } 
-        if (data['next']){
-            const next = document.createElement('button');
-            next.className = "next";
-            next.innerHTML = "Next";
-            nav_buttons.append(next);
-            next.addEventListener('click', () => print_some_posts(whichposts, page_number + 1));
-        } 
+        add_button_to_browse_posts(data, whichposts, page_number);
     })
     .catch(error => console.log(error));
 }
@@ -85,23 +68,17 @@ function print_profile(username){
         user_infos.innerHTML = `<p>Number of followers: ${data.user_stats.followers_number}</p>
                                 <p>Following: ${data.user_stats.following_number} people</p>`
         
-        // Add a follow/unfollow button and an eventListener
+        // Add a follow/unfollow button and an eventListener if it is not owner profile
         if (!data.userisowner){
             if (data.userisfollower) user_infos.innerHTML += `<button class="follow-${data.user_stats.username}">Unfollow</button>`
             else user_infos.innerHTML += `<button class="follow-${data.user_stats.username}">Follow</button>` 
         }
-
-        // Add the html element to the DOM
         document.querySelector("#profile-content").append(user_infos);
         if (document.querySelector(`.follow-${data.user_stats.username}`)) document.querySelector(`.follow-${data.user_stats.username}`).addEventListener('click', follow_or_unfollow);
 
         // Recover user posts and create elements
         data.posts.forEach(element => {
-            const user_post = document.createElement('div');
-            user_post.className = "post-element";
-            user_post.innerHTML = `<p>${element.username}</p> <p><span> le ${element.date}</span><p>
-                              <p class="post-text">${element.text}</p> 
-                              <p>${element.likes} likes</p>`;
+            const user_post = create_a_post_element(element, data['requestuser']); 
             document.querySelector('#profile-content').append(user_post);
         })
     })
@@ -156,4 +133,46 @@ function follow_or_unfollow(event){
         print_profile(username)
     })
     .catch(error => console.log(error));
+}
+
+// Utils for refactoring
+
+function create_a_post_element(element, request_user){
+    // Create the html element containing the post  
+    const post = document.createElement('div');
+    post.className = "post-element";
+    post.innerHTML = `<button class="user-btn">${element.username}</button> 
+                    <p><span>le ${element.date}</span><p>
+                    <p class="post-text">${element.text}</p> 
+                    <p>${element.likes} likes</p>`;
+
+    // Add an edition button for request user posts
+    if (request_user === element.username){
+        const edit_button = document.createElement("button");
+        edit_button.innerHTML = "Edit the page";
+        post.append(edit_button); 
+    }
+    return post;
+}
+
+function add_button_to_browse_posts(data, whichposts, page_number){
+    
+    const nav_buttons = document.createElement('div');
+    nav_buttons.className = "nav-buttons";
+    document.querySelector('#allposts-content').append(nav_buttons);        
+
+    if (data['previous']){
+        const previous = document.createElement('button');
+        previous.className = "previous";
+        previous.innerHTML = "Previous";
+        nav_buttons.append(previous);
+        previous.addEventListener('click', () => print_some_posts(whichposts, page_number - 1));
+    } 
+    if (data['next']){
+        const next = document.createElement('button');
+        next.className = "next";
+        next.innerHTML = "Next";
+        nav_buttons.append(next);
+        next.addEventListener('click', () => print_some_posts(whichposts, page_number + 1));
+    } 
 }

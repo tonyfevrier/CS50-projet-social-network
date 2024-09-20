@@ -97,7 +97,8 @@ def view_some_posts(request, whichposts):
     return JsonResponse({"posts":[post.serialize() for post in actual_page.object_list],
                          "previous":actual_page.has_previous(),
                          "next":actual_page.has_next(),
-                         "number_posts":len(posts)}, safe=False)
+                         "number_posts":len(posts),
+                         "requestuser":request.user.username}, safe=False)
 
 
 def view_profile(request, username):
@@ -108,7 +109,8 @@ def view_profile(request, username):
     return JsonResponse({'user_stats':profile_user.serialize(),
                          'posts': [post.serialize() for post in posts],
                          'userisowner':request.user.username == username,
-                         'userisfollower':request.user.username in profile_user.followers})
+                         'userisfollower':request.user.username in profile_user.followers,
+                         'requestuser':request.user.username})
 
 
 def follow_or_unfollow(request, username):

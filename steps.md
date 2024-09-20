@@ -61,13 +61,13 @@ Using Python, JavaScript, HTML, and CSS, complete the implementation of a social
         - `on transmet l'objectlist, has previous et has next`
         - `suivant les résultats on affiche ou non un bouton next previous`
         - `test unitaire pour vérifier que 10 slt affichés`
-        `See the Hints section for some suggestions on how to implement this.`
-    Bug les posts d'Henri et marine n'apparaissent plus dans all posts
+        `See the Hints section for some suggestions on how to implement this.` 
     Edit Post: Users should be able to click an “Edit” button or link on any of their own posts to edit that post.
         When a user clicks “Edit” for one of their own posts, the content of their post should be replaced with a textarea where the user can edit the content of their post.
         The user should then be able to “Save” the edited post. Using JavaScript, you should be able to achieve this without requiring a reload of the entire page.
         For security, ensure that your application is designed such that it is not possible for a user, via any route, to edit another user’s posts.
-            ajouter un bouton edit si le post est un du request user
+            `ajouter un bouton edit si le post est un du request user pour Allposts et post profile`
+            `factoriser index.js`
             ajouter un event listener dessus
             fonction JS qui remplace le texte par textarea contenant le précédent test et un bouton save
             event listener sur le bouton save
