@@ -166,14 +166,24 @@ function edit_post(id){
 
     fetch(`/editpost/${id}`,{
         method: "POST",
-        headers:{
+        headers: {
             'X-CSRFToken':csrf_token,
         },
-        body:JSON.stringify({
-            content:`${document.querySelector('.edit-content').value}`,
+        body: JSON.stringify({
+            content: document.querySelector('.edit-content').value,
         })
     })
     .catch(error => console.log(error));
+
+    /*fetch('/post', { 
+        method: "POST",
+        headers:{
+            'X-CSRFToken':csrf_token,
+        },
+        body: JSON.stringify({
+            post_content: document.querySelector('#textarea-content').value,
+        })
+    })*/
 }
 
 // Utils for refactoring

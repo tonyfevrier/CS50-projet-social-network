@@ -137,7 +137,7 @@ def follow_or_unfollow(request, username):
 def edit_post(request, id):
     if request.method != "POST":
         return JsonResponse({'error':'Post edition failed'}, status=404) 
-
+ 
     # Get the text of the textarea and register it in the database
     data = json.loads(request.body)
     post = Post.objects.get(id=id)

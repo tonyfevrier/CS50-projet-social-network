@@ -91,7 +91,6 @@ class TestNetwork(TestCase):
         self.assertEqual(response.json()['posts'][0]['text'], 'contenu du post2')
         self.assertEqual(response.json()['userisowner'], True)
         
-        
     def test_follow_or_infollow(self):
         self.register_and_log('marine','marine.moyon@gmail.com','1234','1234')
 
@@ -111,6 +110,15 @@ class TestNetwork(TestCase):
         self.assertNotIn('tony',marine.following)
         self.assertNotIn('marine',tony.followers)
 
+    def test_edit_post(self):
+        """Create a post, edit it and verify the database has been correctly modified"""
+        self.submit_a_post('Hello')
+        self.assertEqual(Post.objects.first().text, 'Hello')
+        self.client.post('/editpost/1', data=json.dumps({'content':"Hello man"}), content_type='application/json')
+        self.assertEqual(Post.objects.first().text, 'Hello man')
+
+
+    # Utils
 
     def register_and_log(self, user, email, password, confirmation):
         self.client.post('/register',data={'username':user,
