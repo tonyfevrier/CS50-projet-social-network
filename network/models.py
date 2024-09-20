@@ -22,7 +22,8 @@ class Post(models.Model):
     likes = models.IntegerField(default=0)
 
     def serialize(self):
-        return {'username':self.user.username,
+        return {'id': self.id,
+                'username':self.user.username,
                 'text':self.text,
                 'date':self.date.strftime("%b %d %Y, %I:%M %p"),
                 'likes':self.likes}

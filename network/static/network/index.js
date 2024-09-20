@@ -149,7 +149,7 @@ function pass_in_edition_mode(event){
     if (document.querySelector('.save-btn')) return;
 
     // Recover the corresponding post and hide its content
-    const post = event.target.parentElement;
+    const post = event.target.parentElement; 
     const content = post.querySelector('.post-text');
     content.hidden = true;
 
@@ -158,13 +158,15 @@ function pass_in_edition_mode(event){
     form.id = "post-form";
     form.innerHTML = `<textarea class='edit-content'>${content.textContent}</textarea><button class="save-btn">Save</button>`
     content.after(form);
-    document.querySelector('.save-btn').addEventListener('click', () => edit_post(post.id));    
+
+    // Recover the post id and create an eventListener to save the post
+    document.querySelector('.save-btn').addEventListener('click', () => edit_post(post));//,post.querySelector('.post-id').textContent));    
 }
 
-function edit_post(id){
+function edit_post(post){
     const csrf_token = document.querySelector('meta[name="csrf-token"]').content;
 
-    fetch(`/editpost/${id}`,{
+    fetch(`/editpost/${post.querySelector('.post-id').textContent}`,{
         method: "POST",
         headers: {
             'X-CSRFToken':csrf_token,
@@ -173,17 +175,12 @@ function edit_post(id){
             content: document.querySelector('.edit-content').value,
         })
     })
+    .then(response => {
+        post.querySelector('.post-text').textContent = document.querySelector('.edit-content').value;
+        post.querySelector('.post-text').hidden = false;
+        document.querySelector('#post-form').remove();
+    })
     .catch(error => console.log(error));
-
-    /*fetch('/post', { 
-        method: "POST",
-        headers:{
-            'X-CSRFToken':csrf_token,
-        },
-        body: JSON.stringify({
-            post_content: document.querySelector('#textarea-content').value,
-        })
-    })*/
 }
 
 // Utils for refactoring
@@ -195,7 +192,8 @@ function create_a_post_element(element, request_user){
     post.innerHTML = `<button class="user-btn">${element.username}</button> 
                     <p><span>le ${element.date}</span><p>
                     <p class="post-text">${element.text}</p> 
-                    <p>${element.likes} likes</p>`;
+                    <p>${element.likes} likes</p>
+                    <p class='post-id' hidden=true>${element.id}</p>`;
 
     // Add an edition button for request user posts
     if (request_user === element.username){

@@ -62,10 +62,10 @@ Using Python, JavaScript, HTML, and CSS, complete the implementation of a social
         - `suivant les résultats on affiche ou non un bouton next previous`
         - `test unitaire pour vérifier que 10 slt affichés`
         `See the Hints section for some suggestions on how to implement this.` 
-    Edit Post: Users should be able to click an “Edit” button or link on any of their own posts to edit that post.
-        When a user clicks “Edit” for one of their own posts, the content of their post should be replaced with a textarea where the user can edit the content of their post.
-        The user should then be able to “Save” the edited post. Using JavaScript, you should be able to achieve this without requiring a reload of the entire page.
-        For security, ensure that your application is designed such that it is not possible for a user, via any route, to edit another user’s posts.
+    `Edit Post: Users should be able to click an “Edit” button or link on any of their own posts to edit that post.`
+        `When a user clicks “Edit” for one of their own posts, the content of their post should be replaced with a textarea where the user can edit the content of their post.`
+        `The user should then be able to “Save” the edited post. Using JavaScript, you should be able to achieve this without requiring a reload of the entire page.`
+        `For security, ensure that your application is designed such that it is not possible for a user, via any route, to edit another user’s posts.`
             `ajouter un bouton edit si le post est un du request user pour Allposts et post profile`
             `factoriser index.js`
             `ajouter un event listener dessus`
@@ -73,9 +73,10 @@ Using Python, JavaScript, HTML, and CSS, complete the implementation of a social
             `event listener sur le bouton save`
             `css de save et textarea`
             `bug : plusieurs clics successifs de edit donnent lieu à plusieurs textarea : il faudrait bloquer ce bouton tant que pas save`
-            écrire une vue view pour l'edition du post et la modif en bdd
-            écrire la fonction JS qui fait la requête et recharge la page actuelle avec les posts mis à jour (date inchangée)
-            test unitaire qui vérifie si la bdd est bien modifiée + l'envoi des bonnes données au JS.
+            `écrire une vue view pour l'edition du post et la modif en bdd`
+            `écrire la fonction JS qui fait la requête et recharge la page actuelle avec les posts mis à jour (date inchangée)`
+            `test unitaire qui vérifie si la bdd est bien modifiée + l'envoi des bonnes données au JS.`
+            `bug : quand on édite le contenu ne change plus`
     “Like” and “Unlike”: Users should be able to click a button or link on any post to toggle whether or not they “like” that post.
         Using JavaScript, you should asynchronously let the server know to update the like count (as via a call to fetch) and then update the post’s like count displayed on the page, without requiring a reload of the entire page.
     

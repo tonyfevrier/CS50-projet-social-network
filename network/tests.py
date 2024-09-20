@@ -116,7 +116,11 @@ class TestNetwork(TestCase):
         self.assertEqual(Post.objects.first().text, 'Hello')
         self.client.post('/editpost/1', data=json.dumps({'content':"Hello man"}), content_type='application/json')
         self.assertEqual(Post.objects.first().text, 'Hello man')
-
+        self.submit_a_post('Hello again')
+        self.client.post('/editpost/1', data=json.dumps({'content':"Hello man My name is Ben"}), content_type='application/json')
+        self.assertEqual(Post.objects.first().text, 'Hello man My name is Ben')
+        self.client.post('/editpost/2', data=json.dumps({'content':"Hello again woman"}), content_type='application/json')
+        self.assertEqual(Post.objects.get(id=2).text, 'Hello again woman')
 
     # Utils
 
