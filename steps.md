@@ -68,7 +68,7 @@ Using Python, JavaScript, HTML, and CSS, complete the implementation of a social
         For security, ensure that your application is designed such that it is not possible for a user, via any route, to edit another user’s posts.
             `ajouter un bouton edit si le post est un du request user pour Allposts et post profile`
             `factoriser index.js`
-            ajouter un event listener dessus
+            `ajouter un event listener dessus`
             fonction JS qui remplace le texte par textarea contenant le précédent test et un bouton save
             event listener sur le bouton save
             écrire une vue view pour l'edition du post et la modif en bdd

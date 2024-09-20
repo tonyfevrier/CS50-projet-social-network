@@ -21,6 +21,11 @@ document.addEventListener("DOMContentLoaded", function(){
 // Event handlers
 
 function print_some_posts(whichposts, page_number){
+    /* Print a selection of posts :
+    Inputs: 
+        - whichpost (str): all or following if we want to get the posts of people we follow
+        - page_number (int): the page of posts we want to print (posts are printed ten by ten) */
+
     // Print the block of posts, hide profile block  
     document.querySelector("#allposts-content").style.display = "block";
     document.querySelector("#profile-content").style.display ="none"; 
@@ -53,6 +58,8 @@ function print_some_posts(whichposts, page_number){
 
 
 function print_profile(username){
+    /* Print the profile of a user given by its username */
+
     document.querySelector("#allposts-content").style.display = "none";
     document.querySelector("#profile-content").style.display = "block"; 
     document.querySelector("#profile-content").innerHTML = "";
@@ -135,6 +142,25 @@ function follow_or_unfollow(event){
     .catch(error => console.log(error));
 }
 
+function pass_in_edition_mode(event){
+    /* Get a textarea to edit a given post */
+
+    // Recover the corresponding post and hide its content
+    const post = event.target.parentElement;
+    const content = post.querySelector('.post-text');
+    content.hidden = true;
+
+    // Create a textarea and a save button
+    const form = document.createElement('div');
+    form.innerHTML = `<textarea>${content.textContent}</textarea><button class="save-btn">Save</button>`
+    content.after(form);
+    document.querySelector('.save-btn').addEventListener('click', edit_post);     
+}
+
+function edit_post(){
+    return
+}
+
 // Utils for refactoring
 
 function create_a_post_element(element, request_user){
@@ -151,12 +177,18 @@ function create_a_post_element(element, request_user){
         const edit_button = document.createElement("button");
         edit_button.innerHTML = "Edit the page";
         post.append(edit_button); 
+        edit_button.addEventListener('click', pass_in_edition_mode);
     }
     return post;
 }
 
 function add_button_to_browse_posts(data, whichposts, page_number){
-    
+    /* Since posts are printed ten by ten, add buttons to see previous or next posts 
+    Inputs : 
+        - data: returned by the fetch request
+        - whichposts: all or following
+        - page_number: the number of the page */
+
     const nav_buttons = document.createElement('div');
     nav_buttons.className = "nav-buttons";
     document.querySelector('#allposts-content').append(nav_buttons);        
