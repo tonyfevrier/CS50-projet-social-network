@@ -48,6 +48,7 @@ function print_some_posts(whichposts, page_number){
         // Add the post to the DOM
         document.querySelector('#allposts-content').append(post);
         post.querySelector('.user-btn').addEventListener('click', () => print_profile(element.username));
+        post.querySelector('.heart-btn').addEventListener("click", like_post);
         })
 
         // Add buttons next/previous to change the slot of posts
@@ -87,6 +88,7 @@ function print_profile(username){
         data.posts.forEach(element => {
             const user_post = create_a_post_element(element, data['requestuser']); 
             document.querySelector('#profile-content').append(user_post);
+            user_post.querySelector('.heart-btn').addEventListener("click", like_post);
         })
     })
 }
@@ -183,6 +185,10 @@ function edit_post(post){
     .catch(error => console.log(error));
 }
 
+function like_post(){
+    return;
+}
+
 // Utils for refactoring
 
 function create_a_post_element(element, request_user){
@@ -192,7 +198,10 @@ function create_a_post_element(element, request_user){
     post.innerHTML = `<button class="user-btn">${element.username}</button> 
                     <p><span>le ${element.date}</span><p>
                     <p class="post-text">${element.text}</p> 
-                    <p>${element.likes} likes</p>
+                    <div class="heart">
+                        <button class="heart-btn">Like<button>
+                        <p>${element.likes}</p>
+                    </div>
                     <p class='post-id' hidden=true>${element.id}</p>`;
 
     // Add an edition button for request user posts
