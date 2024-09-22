@@ -19,11 +19,11 @@ class Post(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="post")
     text = models.TextField(default="")
     date = models.DateTimeField(default=timezone.now)
-    likes = models.IntegerField(default=0)
+    likes = models.JSONField(default=[])
 
     def serialize(self):
         return {'id': self.id,
                 'username':self.user.username,
                 'text':self.text,
                 'date':self.date.strftime("%b %d %Y, %I:%M %p"),
-                'likes':self.likes}
+                'likes':len(self.likes)}

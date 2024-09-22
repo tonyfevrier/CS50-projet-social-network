@@ -79,9 +79,9 @@ Using Python, JavaScript, HTML, and CSS, complete the implementation of a social
             `bug : quand on édite le contenu ne change plus`
     “Like” and “Unlike”: Users should be able to click a button or link on any post to toggle whether or not they “like” that post.
         Using JavaScript, you should asynchronously let the server know to update the like count (as via a call to fetch) and then update the post’s like count displayed on the page, without requiring a reload of the entire page.
-            - ajouter un bouton like dans les posts + un eventLst
-            - modifier models les likes doivent être une liste des gens qui likent
-            - post.serialize doit contenir le nombre de likes
+            - `ajouter un bouton like dans les posts + un eventLst`
+            - `modifier models les likes doivent être une liste des gens qui likent`
+            - `post.serialize doit contenir le nombre de likes`
             - écrire une vue js qui met à jour la bdd (enlève ou ajoute qqun dans la liste) et qui renvoit le nombre de likes du post
             - écrire le handler qui fait une requête vers la vue, récupère le nb de like du post et réactualise le post (on doit rester sur la même page.)
             - scss : mettre un coeur est un chiffre à côté pour les likes.
