@@ -82,10 +82,13 @@ Using Python, JavaScript, HTML, and CSS, complete the implementation of a social
             - `ajouter un bouton like dans les posts + un eventLst`
             - `modifier models les likes doivent être une liste des gens qui likent`
             - `post.serialize doit contenir le nombre de likes`
-            - écrire une vue js qui met à jour la bdd (enlève ou ajoute qqun dans la liste) et qui renvoit le nombre de likes du post
-            - écrire le handler qui fait une requête vers la vue, récupère le nb de like du post et réactualise le post (on doit rester sur la même page.)
-            - test unitaire pour la vue, modif de bdd et transmission du nombre de likes
-            - scss : mettre un coeur est un chiffre à côté pour les likes.
+            - `écrire une vue js qui met à jour la bdd (enlève ou ajoute qqun dans la liste) et qui renvoit le nombre de likes du post`
+            - `écrire le handler qui fait une requête vers la vue, récupère le nb de like du post et réactualise le post (on doit rester sur la même page.)`
+            - `test unitaire pour la vue, modif de bdd et transmission du nombre de likes`
+            - `pourquoi le nombre de likes passe en bleu en hover`
+            - `bug quand je like un post, ça incrémente le dernier post`
+            - `scss : mettre un coeur est un chiffre à côté voire dedans pour les likes.`
+            - `editbtn ne semble plus marcher`
 
     - aller voir comment lui à écrit sa vue JS dans commerce pour m'améliorer
     - Refaire ce projet en remplaçant le JS par React

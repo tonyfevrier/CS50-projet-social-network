@@ -148,6 +148,7 @@ def edit_post(request, id):
     return JsonResponse({'message':'Post edited'}, status=200) 
 
 
+@login_required
 def like_post(request, id):
     # Get the good post and modify the list of likers
     post = Post.objects.get(id=id)

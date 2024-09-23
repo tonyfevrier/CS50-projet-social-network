@@ -37,6 +37,9 @@
   border: 1px solid lightgray;
   padding: 10px;
 }
+.body .post-element .user-date {
+  margin-bottom: 10px;
+}
 .body .post-element button {
   border: none;
   background: transparent;
@@ -54,6 +57,17 @@
 }
 .body .post-element .post-text {
   font-size: 12px;
+}
+.body .post-element .update-post {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.body .post-element .update-post img {
+  width: 20px;
+}
+.body .post-element .update-post p {
+  margin: 0 20px 0 2px;
 }
 .body .post-element #post-form {
   display: flex;

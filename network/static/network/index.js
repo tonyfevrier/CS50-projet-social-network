@@ -48,7 +48,7 @@ function print_some_posts(whichposts, page_number){
         // Add the post to the DOM
         document.querySelector('#allposts-content').append(post);
         post.querySelector('.user-btn').addEventListener('click', () => print_profile(element.username));
-        post.querySelector('.heart-btn').addEventListener("click", like_post);
+        post.querySelector('.heart-btn').addEventListener("click", () => like_post(post));
         })
 
         // Add buttons next/previous to change the slot of posts
@@ -151,7 +151,9 @@ function pass_in_edition_mode(event){
     if (document.querySelector('.save-btn')) return;
 
     // Recover the corresponding post and hide its content
-    const post = event.target.parentElement; 
+    const post = event.target.closest('.post-element');
+    
+    console.log(post);
     const content = post.querySelector('.post-text');
     content.hidden = true;
 
@@ -185,8 +187,16 @@ function edit_post(post){
     .catch(error => console.log(error));
 }
 
-function like_post(){
-    return;
+function like_post(post){
+
+    // Make a request to be a liker or to remove from likers
+    fetch(`/likepost/${document.querySelector('.post-id').textContent}`)
+    .then(response => response.json())
+    .then(data => {
+        // Change the number of likes in the page
+        post.querySelector(".update-post p").innerHTML = data.post["likes"];
+    })
+    .catch(error => console.log(error))
 }
 
 // Utils for refactoring
@@ -195,21 +205,23 @@ function create_a_post_element(element, request_user){
     // Create the html element containing the post  
     const post = document.createElement('div');
     post.className = "post-element";
-    post.innerHTML = `<button class="user-btn">${element.username}</button> 
-                    <p><span>le ${element.date}</span><p>
-                    <p class="post-text">${element.text}</p> 
-                    <div class="heart">
-                        <button class="heart-btn">Like<button>
+    post.innerHTML = `<div class="user-date"> 
+                        <button class="user-btn">${element.username}</button> 
+                        <span>le ${element.date}</span>
+                      </div>
+                      <p class="post-text">${element.text}</p> 
+                      <div class="update-post">
+                        <button class="heart-btn"><img src="/static/network/heart.png" alt="like"></button>
                         <p>${element.likes}</p>
-                    </div>
-                    <p class='post-id' hidden=true>${element.id}</p>`;
+                      </div>
+                      <p class='post-id' hidden=true>${element.id}</p>`;
 
     // Add an edition button for request user posts
     if (request_user === element.username){
         const edit_button = document.createElement("button");
         edit_button.className = "edit"
         edit_button.innerHTML = "Edit the page";
-        post.append(edit_button); 
+        post.querySelector(".update-post").append(edit_button); 
         edit_button.addEventListener('click', pass_in_edition_mode);
     }
     return post;
