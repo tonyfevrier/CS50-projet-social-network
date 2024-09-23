@@ -133,6 +133,7 @@ def follow_or_unfollow(request, username):
     request_user.save()
     return JsonResponse({'message':"Update correctly done"},status = 200)
 
+
 @login_required
 def edit_post(request, id):
     if request.method != "POST":
@@ -145,3 +146,16 @@ def edit_post(request, id):
     post.save()
 
     return JsonResponse({'message':'Post edited'}, status=200) 
+
+
+def like_post(request, id):
+    # Get the good post and modify the list of likers
+    post = Post.objects.get(id=id)
+
+    if (request.user.username) in  post.likes:
+        post.likes.remove(request.user.username)
+    else:
+        post.likes.add(request.user.username)
+    post.save()
+
+    return JsonResponse({'post':post.serialize()}, status=200) 

@@ -122,6 +122,7 @@ class TestNetwork(TestCase):
         self.client.post('/editpost/2', data=json.dumps({'content':"Hello again woman"}), content_type='application/json')
         self.assertEqual(Post.objects.get(id=2).text, 'Hello again woman')
 
+    
     # Utils
 
     def register_and_log(self, user, email, password, confirmation):
