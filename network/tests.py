@@ -15,7 +15,7 @@ class TestNetwork(TestCase):
         self.assertEqual(len(Post.objects.all()), 1)
         self.assertEqual(Post.objects.first().user.username, 'tony')
         self.assertEqual(Post.objects.first().text, 'contenu du post')
-        self.assertEqual(Post.objects.first().likes, 0)
+        self.assertEqual(Post.objects.first().likes, [])
 
     def test_view_some_posts(self):
         # Verify that the good informations are transmitted by view_posts
@@ -121,6 +121,24 @@ class TestNetwork(TestCase):
         self.assertEqual(Post.objects.first().text, 'Hello man My name is Ben')
         self.client.post('/editpost/2', data=json.dumps({'content':"Hello again woman"}), content_type='application/json')
         self.assertEqual(Post.objects.get(id=2).text, 'Hello again woman')
+
+    def test_like_post(self): 
+        # Create a post and like it
+        self.submit_a_post('Hello')
+        self.assertListEqual(Post.objects.first().likes, [])
+        self.client.get("/likepost/1")   
+
+        # A second user like it, data is correctly registered and sent.    
+        self.register_and_log('marine','marine.moyon@gmail.com','1234','1234')
+        response = self.client.get("/likepost/1")
+        self.assertListEqual(Post.objects.first().likes, ['tony', 'marine'])
+        self.assertEqual(response.json()["post"]["likes"], 2)
+
+        # A user dislikes it, date is correcly registered and sent.
+        response = self.client.get("/likepost/1")
+        self.assertListEqual(Post.objects.first().likes, ['tony']) 
+        self.assertEqual(response.json()["post"]["likes"], 1)
+
 
     
     # Utils

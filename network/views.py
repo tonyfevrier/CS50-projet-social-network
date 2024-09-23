@@ -155,7 +155,7 @@ def like_post(request, id):
     if (request.user.username) in  post.likes:
         post.likes.remove(request.user.username)
     else:
-        post.likes.add(request.user.username)
+        post.likes.append(request.user.username)
     post.save()
 
     return JsonResponse({'post':post.serialize()}, status=200) 
