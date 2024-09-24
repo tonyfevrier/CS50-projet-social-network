@@ -89,10 +89,12 @@
             - `bug quand je like un post, ça incrémente le dernier post`
             - `scss : mettre un coeur est un chiffre à côté voire dedans pour les likes.`
             - `editbtn ne semble plus marcher`
-    - bug des likes : je peux liker plusieurs fois un même post et parfois ça passe direct de 0 à 2. Par ailleurs quand je rafraichis le nombre de likes est incorrect, il revient à ce qui était avant. Seul le post le + récent semble marcher. La bdd semble donner le bon nombre mais le reload de viewposts semble charger une vieille version.
-        le pb vient du js
-        hy^pothèse : le fait de ne pas recharger une page après like fait peut être qu'il recharhe une vieille donnée?
-        bel indice : le premier de chaque page est bien retranscrit en nb de likes. 
-
-    - aller voir comment lui à écrit sa vue JS dans commerce pour m'améliorer
+    - `bug des likes : je peux liker plusieurs fois un même post et parfois ça passe direct de 0 à 2. Par ailleurs quand je rafraichis le nombre de likes est incorrect, il revient à ce qui était avant. Seul le post le + récent semble marcher. La bdd semble donner le bon nombre mais le reload de viewposts semble charger une vieille version.`
+        `le pb vient du js`
+        `hypothèse : le fait de ne pas recharger une page après like fait peut être qu'il recharhe une vieille donnée?`
+        `bel indice : le premier de chaque page est bien retranscrit en nb de likes. `
+        `test selenium : quand marine like les posts 1 et 2, ça semble ne toucher que le post qu'elle a posté! Visibleemnt pb dans le js qui fait que le clic ne se fait que sur le dernier post créé.`
+    - `aller voir comment lui à écrit sa vue JS dans commerce pour m'améliorer`
+    - `bug : les posts vides ne cachent pas le bouton Post lorsque je viens de poster et même si je clique sur un des boutons. C'est seulement en rafraîchissant la page que le post disparaît!`
+    
     - Refaire ce projet en remplaçant le JS par React

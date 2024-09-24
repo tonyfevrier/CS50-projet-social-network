@@ -163,14 +163,14 @@ def like_post(request, id):
 
 def like_post(request, id):
     # Get the good post and modify the list of likers
-    post = Post.objects.get(id=id) 
-    
+    post = Post.objects.get(id=id)  
+
     if request.user.username:
         if request.user.username in  post.likes:
             post.likes.remove(request.user.username)
         else:
             post.likes.append(request.user.username)
-        post.save()
+        post.save() 
     else:
         return JsonResponse({'error': 'You must log in before liking'}, status=404)
 

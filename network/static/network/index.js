@@ -13,8 +13,9 @@ document.addEventListener("DOMContentLoaded", function(){
 
         // Submit a newpost 
         document.querySelector('#submit-post').addEventListener("click", submit_post);
+        //print_some_posts('all', 1);
+        //return;
     }
-
     print_some_posts('all', 1);
 }); 
 
@@ -41,7 +42,6 @@ function print_some_posts(whichposts, page_number){
 
         //  Print each post
         data["posts"].forEach(element => {
-        console.log(element);
         // Create the html element containing the post   
         const post = create_a_post_element(element, data["requestuser"]);
 
@@ -85,8 +85,7 @@ function print_profile(username){
         if (document.querySelector(`.follow-${data.user_stats.username}`)) document.querySelector(`.follow-${data.user_stats.username}`).addEventListener('click', follow_or_unfollow);
 
         // Recover user posts and create elements
-        data.posts.forEach(element => {
-            console.log(element)
+        data.posts.forEach(element => { 
             const user_post = create_a_post_element(element, data['requestuser']); 
             document.querySelector('#profile-content').append(user_post);
             user_post.querySelector('.heart-btn').addEventListener("click", () => like_post(user_post));
@@ -121,6 +120,7 @@ function submit_post(){
     })
     .then(response => { 
         document.querySelector('#textarea-content').value = ''; 
+        document.querySelector('#submit-post').hidden = true;
 
         // Do not print posts already present on the page
         document.querySelectorAll('.post-element').forEach(element => element.style.display = 'none');
@@ -191,7 +191,7 @@ function like_post(post){
     if (document.querySelector('.error-like')) document.querySelector('.error-like').remove();
 
     // Make a request to be a liker or to remove from likers
-    fetch(`/likepost/${document.querySelector('.post-id').textContent}`)
+    fetch(`/likepost/${post.querySelector('.post-id').textContent}`)
     .then(response => response.json())
     .then(data => {  
         // Change the number of likes in the page
@@ -212,12 +212,12 @@ function create_a_post_element(element, request_user){
     post.className = "post-element";
     post.innerHTML = `<div class="user-date"> 
                         <button class="user-btn">${element.username}</button> 
-                        <span>le ${element.date}</span>
+                        <span class="post-date">le ${element.date}</span>
                       </div>
                       <p class="post-text">${element.text}</p> 
                       <div class="update-post">
-                        <button class="heart-btn"><img src="/static/network/heart.png" alt="like"></button>
-                        <p>${element.likes}</p>
+                        <button class="heart-btn" id="post-${element.id}"><img src="/static/network/heart.png" alt="like"></button>
+                        <p class="post-likes">${element.likes}</p>
                       </div>
                       <p class='post-id' hidden=true>${element.id}</p>`;
 
@@ -225,7 +225,7 @@ function create_a_post_element(element, request_user){
     if (request_user === element.username){
         const edit_button = document.createElement("button");
         edit_button.className = "edit"
-        edit_button.innerHTML = "Edit the page";
+        edit_button.innerHTML = "Edit";
         post.querySelector(".update-post").append(edit_button); 
         edit_button.addEventListener('click', pass_in_edition_mode);
     }
