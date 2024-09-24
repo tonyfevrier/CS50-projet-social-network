@@ -29,6 +29,78 @@ class TestNetwork(TestCase):
         self.assertIn('contenu du post2', [response.json()['posts'][0]['text'], response.json()['posts'][1]['text']])
         self.assertIn('contenu du post', [response.json()['posts'][0]['text'], response.json()['posts'][1]['text']]) 
 
+    def test_views_one_post_after_liking(self):
+        # Submit a post and like it
+        self.submit_a_post("Hello")
+        self.client.get("/likepost/1")
+        response = self.client.get('/someposts/all?param1=1')
+        self.assertEqual(response.json()["posts"][0]["likes"], 1)
+        self.logout()
+
+        # An other participant register log, see the posts
+        self.register_and_log('marine','marine.moyon@gmail.com','1234','1234')
+        response = self.client.get('/someposts/all?param1=1')
+        self.assertEqual(response.json()["posts"][0]["likes"], 1)
+
+        # He likes the post
+        self.client.get("/likepost/1")
+        response = self.client.get('/someposts/all?param1=1')
+        self.assertEqual(response.json()["posts"][0]["likes"], 2)
+        self.logout()
+        
+        # First user log and view posts
+        self.login('tony', "1234")
+        response = self.client.get('/someposts/all?param1=1')
+        self.assertEqual(response.json()["posts"][0]["likes"], 2)    
+
+    def test_views_some_posts_after_liking(self):
+        # Submit 2 posts
+        self.submit_a_post("Hello") 
+        self.submit_a_post("knfnsf") 
+        self.logout()
+
+        # An other participant register and submit
+        self.register_and_log('marine','m@gmail.com','1234','1234')
+        self.submit_a_post('coucou')
+        
+        response = self.client.get('/someposts/all?param1=1')
+        self.assertEqual(response.json()["posts"][0]["likes"], 0)
+        self.assertEqual(response.json()["posts"][1]["likes"], 0)
+        self.assertEqual(response.json()["posts"][2]["likes"], 0)
+
+        # He likes the three posts
+        self.client.get("/likepost/1")
+        self.client.get("/likepost/2") 
+        self.client.get("/likepost/3")
+
+        self.assertListEqual(Post.objects.get(id=1).likes, ['marine'])
+        self.assertListEqual(Post.objects.get(id=3).likes, ['marine'])
+        self.assertListEqual(Post.objects.get(id=2).likes, ["marine"])
+
+
+        response = self.client.get('/someposts/all?param1=1') 
+        self.assertEqual(response.json()["posts"][0]["likes"], 1)
+        self.assertEqual(response.json()["posts"][1]["likes"], 1)
+        self.assertEqual(response.json()["posts"][2]["likes"], 1)
+        self.logout()
+        
+        # First user log and view posts
+        self.login('tony', "1234")
+        response = self.client.get('/someposts/all?param1=1')
+        self.assertEqual(response.json()["posts"][0]["likes"], 1)
+        self.assertEqual(response.json()["posts"][1]["likes"], 1)
+        self.assertEqual(response.json()["posts"][2]["likes"], 1) 
+
+        # He likes posts    
+        self.client.get("/likepost/1")
+        self.client.get("/likepost/2")
+        self.client.get("/likepost/3")
+
+        response = self.client.get('/someposts/all?param1=1')
+        self.assertEqual(response.json()["posts"][0]["likes"], 2)
+        self.assertEqual(response.json()["posts"][1]["likes"], 2)
+        self.assertEqual(response.json()["posts"][2]["likes"], 2) 
+
     def test_view_multiple_posts(self):
         """ Create a lot of tests and verify if only ten posts are transmitted"""
         for i in range(22):
@@ -90,7 +162,24 @@ class TestNetwork(TestCase):
         self.assertEqual(len(response.json()['posts']),1)
         self.assertEqual(response.json()['posts'][0]['text'], 'contenu du post2')
         self.assertEqual(response.json()['userisowner'], True)
-        
+
+    def test_view_profile_posts_after_liking(self):
+        # Submit a post and like it
+        self.submit_a_post("Hello")
+        self.client.get("/likepost/1")
+        response = self.client.get('/profile/tony') 
+        self.assertEqual(response.json()["posts"][0]["likes"], 1)
+
+        # An other participant register log, see the posts
+        self.register_and_log('marine','marine.moyon@gmail.com','1234','1234')   
+        response = self.client.get('/profile/tony')  
+        self.assertEqual(response.json()["posts"][0]["likes"], 1)
+
+        # He likes the post
+        self.client.get("/likepost/1")        
+        response = self.client.get('/profile/tony')  
+        self.assertEqual(response.json()["posts"][0]["likes"], 2)
+
     def test_follow_or_infollow(self):
         self.register_and_log('marine','marine.moyon@gmail.com','1234','1234')
 
@@ -139,7 +228,13 @@ class TestNetwork(TestCase):
         self.assertListEqual(Post.objects.first().likes, ['tony']) 
         self.assertEqual(response.json()["post"]["likes"], 1)
 
+    def test_like_post_unlogged(self):
+        self.submit_a_post('test')
+        self.logout()
 
+        # Try to like while unlogged
+        response = self.client.get("/likepost/1")
+        self.assertEqual(response.json()['error'], 'You must log in before liking')
     
     # Utils
 

@@ -147,16 +147,31 @@ def edit_post(request, id):
 
     return JsonResponse({'message':'Post edited'}, status=200) 
 
-
-@login_required
+""" @login_required
 def like_post(request, id):
     # Get the good post and modify the list of likers
     post = Post.objects.get(id=id)
+    print(post, id, request, request.user, request.user.username, post.likes, request.user.username in  post.likes)
 
-    if (request.user.username) in  post.likes:
+    if request.user.username in post.likes:
         post.likes.remove(request.user.username)
     else:
         post.likes.append(request.user.username)
     post.save()
+
+    return JsonResponse({'post':post.serialize()}, status=200)  """
+
+def like_post(request, id):
+    # Get the good post and modify the list of likers
+    post = Post.objects.get(id=id) 
+    
+    if request.user.username:
+        if request.user.username in  post.likes:
+            post.likes.remove(request.user.username)
+        else:
+            post.likes.append(request.user.username)
+        post.save()
+    else:
+        return JsonResponse({'error': 'You must log in before liking'}, status=404)
 
     return JsonResponse({'post':post.serialize()}, status=200) 

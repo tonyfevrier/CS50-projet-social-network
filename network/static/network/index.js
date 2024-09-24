@@ -41,7 +41,7 @@ function print_some_posts(whichposts, page_number){
 
         //  Print each post
         data["posts"].forEach(element => {
-
+        console.log(element);
         // Create the html element containing the post   
         const post = create_a_post_element(element, data["requestuser"]);
 
@@ -86,9 +86,10 @@ function print_profile(username){
 
         // Recover user posts and create elements
         data.posts.forEach(element => {
+            console.log(element)
             const user_post = create_a_post_element(element, data['requestuser']); 
             document.querySelector('#profile-content').append(user_post);
-            user_post.querySelector('.heart-btn').addEventListener("click", like_post);
+            user_post.querySelector('.heart-btn').addEventListener("click", () => like_post(user_post));
         })
     })
 }
@@ -153,7 +154,6 @@ function pass_in_edition_mode(event){
     // Recover the corresponding post and hide its content
     const post = event.target.closest('.post-element');
     
-    console.log(post);
     const content = post.querySelector('.post-text');
     content.hidden = true;
 
@@ -188,20 +188,25 @@ function edit_post(post){
 }
 
 function like_post(post){
+    if (document.querySelector('.error-like')) document.querySelector('.error-like').remove();
 
     // Make a request to be a liker or to remove from likers
     fetch(`/likepost/${document.querySelector('.post-id').textContent}`)
     .then(response => response.json())
-    .then(data => {
+    .then(data => {  
         // Change the number of likes in the page
-        post.querySelector(".update-post p").innerHTML = data.post["likes"];
+        if (data.post){ 
+            post.querySelector(".update-post p").innerHTML = data.post["likes"];
+        } else {
+            post.insertAdjacentHTML('beforeend', `<p class="error-like">${data.error}</p>`);
+        }
     })
     .catch(error => console.log(error))
 }
 
 // Utils for refactoring
 
-function create_a_post_element(element, request_user){
+function create_a_post_element(element, request_user){ 
     // Create the html element containing the post  
     const post = document.createElement('div');
     post.className = "post-element";

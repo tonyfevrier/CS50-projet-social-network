@@ -3,7 +3,7 @@
 - `écrire le js qui affiche successivement les div suivant le lien cliqué`
 - `ajouter du css montrant sur quel lien on clique actuellement`
 
-Using Python, JavaScript, HTML, and CSS, complete the implementation of a social network that allows users to make posts, follow other users, and “like” posts. You must fulfill the following requirements:
+`Using Python, JavaScript, HTML, and CSS, complete the implementation of a social network that allows users to make posts, follow other users, and “like” posts. You must fulfill the following requirements:`
     `New Post: Users who are signed in should be able to write a new text-based post by filling in text into a text area and then clicking a button to submit the post.`
         `The screenshot at the top of this specification shows the “New Post” box at the top of the “All Posts” page. You may choose to do this as well, or you may make the “New Post” feature a separate page.`
             - `créer un modèle pour les posts dans la bdd`
@@ -77,8 +77,8 @@ Using Python, JavaScript, HTML, and CSS, complete the implementation of a social
             `écrire la fonction JS qui fait la requête et recharge la page actuelle avec les posts mis à jour (date inchangée)`
             `test unitaire qui vérifie si la bdd est bien modifiée + l'envoi des bonnes données au JS.`
             `bug : quand on édite le contenu ne change plus`
-    “Like” and “Unlike”: Users should be able to click a button or link on any post to toggle whether or not they “like” that post.
-        Using JavaScript, you should asynchronously let the server know to update the like count (as via a call to fetch) and then update the post’s like count displayed on the page, without requiring a reload of the entire page.
+    `“Like” and “Unlike”: Users should be able to click a button or link on any post to toggle whether or not they “like” that post.`
+        `Using JavaScript, you should asynchronously let the server know to update the like count (as via a call to fetch) and then update the post’s like count displayed on the page, without requiring a reload of the entire page.`
             - `ajouter un bouton like dans les posts + un eventLst`
             - `modifier models les likes doivent être une liste des gens qui likent`
             - `post.serialize doit contenir le nombre de likes`
@@ -89,6 +89,10 @@ Using Python, JavaScript, HTML, and CSS, complete the implementation of a social
             - `bug quand je like un post, ça incrémente le dernier post`
             - `scss : mettre un coeur est un chiffre à côté voire dedans pour les likes.`
             - `editbtn ne semble plus marcher`
+    - bug des likes : je peux liker plusieurs fois un même post et parfois ça passe direct de 0 à 2. Par ailleurs quand je rafraichis le nombre de likes est incorrect, il revient à ce qui était avant. Seul le post le + récent semble marcher. La bdd semble donner le bon nombre mais le reload de viewposts semble charger une vieille version.
+        le pb vient du js
+        hy^pothèse : le fait de ne pas recharger une page après like fait peut être qu'il recharhe une vieille donnée?
+        bel indice : le premier de chaque page est bien retranscrit en nb de likes. 
 
     - aller voir comment lui à écrit sa vue JS dans commerce pour m'améliorer
     - Refaire ce projet en remplaçant le JS par React
